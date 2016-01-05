@@ -1,0 +1,732 @@
+[info] Updating {file:/E:/Kod/CompiEx5/simplifier_combinator/}simplifier_combinator...
+[debug] :: resolving dependencies :: simplifier#simplifier_2.11;1.0.0
+[debug] 	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool]
+[debug] 	validate = true
+[debug] 	refresh = false
+[debug] resolving dependencies for configuration 'compile'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->default(compile)]
+[info] Resolving org.scala-lang#scala-library;2.11.2 ...
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@2ef00b08
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-library\2.11.2\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scala-lang#scala-library;2.11.2
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.pom
+[debug] 	public: found md file for org.scala-lang#scala-library;2.11.2
+[debug] 		=> http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.pom (2.11.2)
+[debug] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.pom
+[debug] 	[SUCCESSFUL ] org.scala-lang#scala-library;2.11.2!scala-library.pom(pom.original) (172ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-library\2.11.2\jars\scala-library.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.jar
+[debug] 	found org.scala-lang#scala-library;2.11.2 in public
+[debug] 	[2.11.2] org.scala-lang#scala-library;2.11.2
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->default(compile)]
+[info] Resolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 {compile=[default(compile)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.2\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.pom
+[debug] 	public: found md file for org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2
+[debug] 		=> http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.pom (1.0.2)
+[debug] downloading http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.pom
+[debug] 	[SUCCESSFUL ] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2!scala-parser-combinators_2.11.pom(pom.original) (651ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.2\bundles\scala-parser-combinators_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar
+[debug] 	found org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 in public
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master]
+[debug] resolving dependencies for configuration 'runtime'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master]
+[debug] resolving dependencies for configuration 'test'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [test]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->default(compile)]
+[info] Resolving org.specs2#specs2-core_2.11;2.4.14 ...
+[debug] sbt-chain: Checking cache for: dependency: org.specs2#specs2-core_2.11;2.4.14 {test=[default(compile)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.specs2\specs2-core_2.11\2.4.14\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.specs2#specs2-core_2.11;2.4.14
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.pom
+[debug] 	public: found md file for org.specs2#specs2-core_2.11;2.4.14
+[debug] 		=> http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.pom (2.4.14)
+[debug] downloading http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.pom
+[debug] 	[SUCCESSFUL ] org.specs2#specs2-core_2.11;2.4.14!specs2-core_2.11.pom(pom.original) (738ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.specs2\specs2-core_2.11\2.4.14\jars\specs2-core_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.jar
+[debug] 	found org.specs2#specs2-core_2.11;2.4.14 in public
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[info] Resolving org.scala-lang#scala-library;2.11.4 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-library;2.11.4 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-library\2.11.4\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scala-lang#scala-library;2.11.4
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.pom
+[debug] 	public: found md file for org.scala-lang#scala-library;2.11.4
+[debug] 		=> http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.pom (2.11.4)
+[debug] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.pom
+[debug] 	[SUCCESSFUL ] org.scala-lang#scala-library;2.11.4!scala-library.pom(pom.original) (654ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-library\2.11.4\jars\scala-library.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.jar
+[debug] 	found org.scala-lang#scala-library;2.11.4 in public
+[debug] 	[2.11.4] org.scala-lang#scala-library;2.11.4
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->runtime]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->default(compile)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->runtime]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->master]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [compile->master(*)]
+[info] Resolving org.specs2#specs2-matcher_2.11;2.4.14 ...
+[debug] sbt-chain: Checking cache for: dependency: org.specs2#specs2-matcher_2.11;2.4.14 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.specs2\specs2-matcher_2.11\2.4.14\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.specs2#specs2-matcher_2.11;2.4.14
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.pom
+[debug] 	public: found md file for org.specs2#specs2-matcher_2.11;2.4.14
+[debug] 		=> http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.pom (2.4.14)
+[debug] downloading http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.pom
+[debug] 	[SUCCESSFUL ] org.specs2#specs2-matcher_2.11;2.4.14!specs2-matcher_2.11.pom(pom.original) (240ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.specs2\specs2-matcher_2.11\2.4.14\jars\specs2-matcher_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.jar
+[debug] 	found org.specs2#specs2-matcher_2.11;2.4.14 in public
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [compile->master(*)]
+[info] Resolving org.specs2#specs2-common_2.11;2.4.14 ...
+[debug] sbt-chain: Checking cache for: dependency: org.specs2#specs2-common_2.11;2.4.14 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.specs2\specs2-common_2.11\2.4.14\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.specs2#specs2-common_2.11;2.4.14
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.pom
+[debug] 	public: found md file for org.specs2#specs2-common_2.11;2.4.14
+[debug] 		=> http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.pom (2.4.14)
+[debug] downloading http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.pom
+[debug] 	[SUCCESSFUL ] org.specs2#specs2-common_2.11;2.4.14!specs2-common_2.11.pom(pom.original) (245ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.specs2\specs2-common_2.11\2.4.14\jars\specs2-common_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.jar
+[debug] 	found org.specs2#specs2-common_2.11;2.4.14 in public
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [compile->master(*)]
+[info] Resolving org.scalaz#scalaz-core_2.11;7.1.0 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scalaz#scalaz-core_2.11;7.1.0 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalaz\scalaz-core_2.11\7.1.0\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scalaz#scalaz-core_2.11;7.1.0
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.pom
+[debug] 	public: found md file for org.scalaz#scalaz-core_2.11;7.1.0
+[debug] 		=> http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.pom (7.1.0)
+[debug] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.pom
+[debug] 	[SUCCESSFUL ] org.scalaz#scalaz-core_2.11;7.1.0!scalaz-core_2.11.pom(pom.original) (147ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalaz\scalaz-core_2.11\7.1.0\bundles\scalaz-core_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.jar
+[debug] 	found org.scalaz#scalaz-core_2.11;7.1.0 in public
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->master(*)]
+[info] Resolving org.scala-lang.modules#scala-xml_2.11;1.0.2 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang.modules#scala-xml_2.11;1.0.2 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] sbt-chain: module revision found in cache: org.scala-lang.modules#scala-xml_2.11;1.0.2
+[debug] 	local: revision in cache: org.scala-lang.modules#scala-xml_2.11;1.0.2
+[debug] 	found org.scala-lang.modules#scala-xml_2.11;1.0.2 in sbt-chain
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [compile->master(*)]
+[info] Resolving org.scalaz#scalaz-concurrent_2.11;7.1.0 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scalaz#scalaz-concurrent_2.11;7.1.0 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalaz\scalaz-concurrent_2.11\7.1.0\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scalaz#scalaz-concurrent_2.11;7.1.0
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.pom
+[debug] 	public: found md file for org.scalaz#scalaz-concurrent_2.11;7.1.0
+[debug] 		=> http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.pom (7.1.0)
+[debug] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.pom
+[debug] 	[SUCCESSFUL ] org.scalaz#scalaz-concurrent_2.11;7.1.0!scalaz-concurrent_2.11.pom(pom.original) (736ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalaz\scalaz-concurrent_2.11\7.1.0\bundles\scalaz-concurrent_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.jar
+[debug] 	found org.scalaz#scalaz-concurrent_2.11;7.1.0 in public
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [compile->master(*)]
+[info] Resolving org.scalaz#scalaz-effect_2.11;7.1.0 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scalaz#scalaz-effect_2.11;7.1.0 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalaz\scalaz-effect_2.11\7.1.0\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scalaz#scalaz-effect_2.11;7.1.0
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.pom
+[debug] 	public: found md file for org.scalaz#scalaz-effect_2.11;7.1.0
+[debug] 		=> http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.pom (7.1.0)
+[debug] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.pom
+[debug] 	[SUCCESSFUL ] org.scalaz#scalaz-effect_2.11;7.1.0!scalaz-effect_2.11.pom(pom.original) (743ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalaz\scalaz-effect_2.11\7.1.0\bundles\scalaz-effect_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.jar
+[debug] 	found org.scalaz#scalaz-effect_2.11;7.1.0 in public
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [compile->master(*)]
+[info] Resolving org.scala-lang#scala-reflect;2.11.4 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-reflect;2.11.4 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-reflect\2.11.4\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scala-lang#scala-reflect;2.11.4
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.pom
+[debug] 	public: found md file for org.scala-lang#scala-reflect;2.11.4
+[debug] 		=> http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.pom (2.11.4)
+[debug] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.pom
+[debug] 	[SUCCESSFUL ] org.scala-lang#scala-reflect;2.11.4!scala-reflect.pom(pom.original) (653ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-reflect\2.11.4\jars\scala-reflect.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.jar
+[debug] 	found org.scala-lang#scala-reflect;2.11.4 in public
+[debug] 	[2.11.4] org.scala-lang#scala-reflect;2.11.4
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [compile->master(compile)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [compile->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [compile->compile]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->default(compile)]
+[info] Resolving org.scalatest#scalatest_2.11;2.2.1 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scalatest#scalatest_2.11;2.2.1 {test=[default(compile)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalatest\scalatest_2.11\2.2.1\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scalatest#scalatest_2.11;2.2.1
+[debug] 		tried http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.pom
+[debug] 	public: found md file for org.scalatest#scalatest_2.11;2.2.1
+[debug] 		=> http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.pom (2.2.1)
+[debug] downloading http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.pom
+[debug] 	[SUCCESSFUL ] org.scalatest#scalatest_2.11;2.2.1!scalatest_2.11.pom(pom.original) (653ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scalatest\scalatest_2.11\2.2.1\bundles\scalatest_2.11.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.jar
+[debug] 	found org.scalatest#scalatest_2.11;2.2.1 in public
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->compile]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->master]
+[debug] resolving dependencies for configuration 'provided'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [provided]
+[debug] resolving dependencies for configuration 'optional'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [optional]
+[debug] resolving dependencies for configuration 'compile-internal'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [compile-internal]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [optional]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [provided]
+[debug] resolving dependencies for configuration 'runtime-internal'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [runtime-internal]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [optional]
+[debug] resolving dependencies for configuration 'test-internal'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [test-internal]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [test]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->master(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-core_2.11;2.4.14->org.specs2#specs2-matcher_2.11;2.4.14 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-matcher_2.11;2.4.14->org.specs2#specs2-common_2.11;2.4.14 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-core_2.11;7.1.0->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scalaz#scalaz-concurrent_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-concurrent_2.11;7.1.0->org.scalaz#scalaz-effect_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalaz#scalaz-effect_2.11;7.1.0->org.scalaz#scalaz-core_2.11;7.1.0 [runtime->compile]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.specs2#specs2-common_2.11;2.4.14->org.scala-lang#scala-reflect;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.4->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.specs2#specs2-core_2.11;2.4.14 [test->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->default(compile)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->compile]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->master(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-library;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang#scala-reflect;2.11.4 [runtime->compile]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scalatest#scalatest_2.11;2.2.1->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scalatest#scalatest_2.11;2.2.1 [test->master]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [optional]
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [provided]
+[debug] resolving dependencies for configuration 'plugin'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [plugin]
+[debug] resolving dependencies for configuration 'sources'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [sources]
+[debug] resolving dependencies for configuration 'docs'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [docs]
+[debug] resolving dependencies for configuration 'pom'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [pom]
+[debug] resolving dependencies for configuration 'scala-tool'
+[debug] == resolving dependencies for simplifier#simplifier_2.11;1.0.0 [scala-tool]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.2 [scala-tool->default]
+[info] Resolving org.scala-lang#scala-compiler;2.11.2 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-compiler;2.11.2 {scala-tool=[default, optional(default)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-compiler\2.11.2\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scala-lang#scala-compiler;2.11.2
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.pom
+[debug] 	public: found md file for org.scala-lang#scala-compiler;2.11.2
+[debug] 		=> http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.pom (2.11.2)
+[debug] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.pom
+[debug] 	[SUCCESSFUL ] org.scala-lang#scala-compiler;2.11.2!scala-compiler.pom(pom.original) (648ms)
+[debug] 		tried C:\Users\zbkro\.ivy2\local\org.scala-lang\scala-compiler\2.11.2\jars\scala-compiler.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.jar
+[debug] 	found org.scala-lang#scala-compiler;2.11.2 in public
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.2 [scala-tool->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.2 [scala-tool->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->default]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->runtime]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->master]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->optional(default)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-reflect;2.11.2 [compile->master(*)]
+[info] Resolving org.scala-lang#scala-reflect;2.11.2 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-reflect;2.11.2 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] sbt-chain: module revision found in cache: org.scala-lang#scala-reflect;2.11.2
+[debug] 	local: revision in cache: org.scala-lang#scala-reflect;2.11.2
+[debug] 	found org.scala-lang#scala-reflect;2.11.2 in sbt-chain
+[debug] 	[2.11.2] org.scala-lang#scala-reflect;2.11.2
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-reflect;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-reflect;2.11.2 [compile->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-reflect;2.11.2 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-xml_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(compile)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-reflect;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang#scala-reflect;2.11.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-xml_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2->org.scala-lang#scala-library;2.11.2 [runtime->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.2 [scala-tool->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.2 [scala-tool->optional(default)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->jline#jline;2.12 [optional->master(*)]
+[info] Resolving jline#jline;2.12 ...
+[debug] sbt-chain: Checking cache for: dependency: jline#jline;2.12 {optional=[compile(*), master(*)]}
+[debug] 		tried C:\Users\zbkro\.ivy2\local\jline\jline\2.12\ivys\ivy.xml
+[debug] 	local: no ivy file found for jline#jline;2.12
+[debug] 		tried http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.pom
+[debug] 	public: found md file for jline#jline;2.12
+[debug] 		=> http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.pom (2.12)
+[debug] downloading http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.pom ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.pom
+[debug] 	public: downloading http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.pom.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.pom
+[debug] 	[SUCCESSFUL ] jline#jline;2.12!jline.pom(pom.original) (680ms)
+[info] Resolving org.sonatype.oss#oss-parent;7 ...
+[debug] sbt-chain: Checking cache for: dependency: org.sonatype.oss#oss-parent;7 {}
+[debug] sbt-chain: module revision found in cache: org.sonatype.oss#oss-parent;7
+[debug] 	local: revision in cache: org.sonatype.oss#oss-parent;7
+[debug] 		tried C:\Users\zbkro\.ivy2\local\jline\jline\2.12\jars\jline.jar
+[debug] 		tried http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.jar
+[debug] 	found jline#jline;2.12 in public
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.2->jline#jline;2.12 [optional->compile(*)]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [scala-tool->default]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [scala-tool->runtime]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [scala-tool->compile]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [scala-tool->master]
+[debug] == resolving dependencies simplifier#simplifier_2.11;1.0.0->org.scala-lang#scala-library;2.11.2 [scala-tool->optional(default)]
+[debug] 	resolved ivy file produced in cache
+[debug] :: downloading artifacts ::
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.jar
+[info] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.jar
+[info] 	[SUCCESSFUL ] org.scala-lang#scala-library;2.11.2!scala-library.jar (4232ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar
+[info] downloading http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar
+[info] 	[SUCCESSFUL ] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2!scala-parser-combinators_2.11.jar(bundle) (937ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.jar
+[info] downloading http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.4.14/specs2-core_2.11-2.4.14.jar
+[info] 	[SUCCESSFUL ] org.specs2#specs2-core_2.11;2.4.14!specs2-core_2.11.jar (2065ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.jar
+[info] downloading http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.1/scalatest_2.11-2.2.1.jar
+[info] 	[SUCCESSFUL ] org.scalatest#scalatest_2.11;2.2.1!scalatest_2.11.jar(bundle) (5419ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.jar
+[info] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.4/scala-library-2.11.4.jar
+[info] 	[SUCCESSFUL ] org.scala-lang#scala-library;2.11.4!scala-library.jar (4192ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.jar
+[info] downloading http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.4.14/specs2-matcher_2.11-2.4.14.jar
+[info] 	[SUCCESSFUL ] org.specs2#specs2-matcher_2.11;2.4.14!specs2-matcher_2.11.jar (2587ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.jar
+[info] downloading http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.4.14/specs2-common_2.11-2.4.14.jar
+[info] 	[SUCCESSFUL ] org.specs2#specs2-common_2.11;2.4.14!specs2-common_2.11.jar (1373ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.jar
+[info] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.jar
+[info] 	[SUCCESSFUL ] org.scalaz#scalaz-core_2.11;7.1.0!scalaz-core_2.11.jar(bundle) (7625ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.jar
+[info] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.jar
+[info] 	[SUCCESSFUL ] org.scalaz#scalaz-concurrent_2.11;7.1.0!scalaz-concurrent_2.11.jar(bundle) (470ms)
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.jar
+[info] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.4/scala-reflect-2.11.4.jar
+[info] 	[SUCCESSFUL ] org.scala-lang#scala-reflect;2.11.4!scala-reflect.jar (4326ms)
+[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.2!scala-xml_2.11.jar(bundle)
+[debug] 		tried http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.jar
+[info] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.jar
+[info] 	[SUCCESSFUL ] org.scalaz#scalaz-effect_2.11;7.1.0!scalaz-effect_2.11.jar(bundle) (1063ms)
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.11.2!scala-reflect.jar
+[debug] 		tried http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.jar
+[info] downloading http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.jar
+[info] 	[SUCCESSFUL ] org.scala-lang#scala-compiler;2.11.2!scala-compiler.jar (10222ms)
+[debug] 		tried http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.jar
+[info] downloading http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.jar ...
+[debug] 	public: downloading http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.jar
+[debug] 	public: downloading http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.jar.sha1
+[debug] sha1 OK for http://repo1.maven.org/maven2/jline/jline/2.12/jline-2.12.jar
+[info] 	[SUCCESSFUL ] jline#jline;2.12!jline.jar (804ms)
+[debug] :: resolution report :: resolve 14181ms :: artifacts dl 45327ms
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 compile produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-compile.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 runtime produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-runtime.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 test produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-test.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 provided produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-provided.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 optional produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-optional.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 compile-internal produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-compile-internal.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 runtime-internal produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-runtime-internal.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 test-internal produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-test-internal.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 plugin produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-plugin.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 sources produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-sources.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 docs produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-docs.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 pom produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-pom.xml
+[debug] 	report for simplifier#simplifier_2.11;1.0.0 scala-tool produced in E:\Kod\CompiEx5\simplifier_combinator\target\resolution-cache\reports\simplifier-simplifier_2.11-scala-tool.xml
+[debug] 	resolve done (14181ms resolve - 45327ms download)
+[info] Done updating.
