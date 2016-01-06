@@ -224,12 +224,22 @@ class Parser extends JavaTokenParsers {
       case target ~ expression => Assignment(target, expression)
   }
 
-  def if_else_stmt: Parser[Node] = (
-        "if" ~> expression ~ (":" ~> suite) ~ ("else"~":" ~> suite).? ^^ {
-            case expression ~ suite1 ~ Some(suite2) => IfElseInstr(expression, suite1, suite2)
-            case expression ~ suite ~ None => IfInstr(expression, suite)
-        }
-  )
+  // Here I used already created AST elements to incorporate elif int if_else_statements.
+  // Elif is just a syntactic sugar and is not represented in the tree
+  // This is done not too elegantly however it might be the simplest way
+  def if_else_stmt: Parser[Node] =
+    "if" ~> expression ~ (":" ~> suite) ~ elif_else_stmt.? ^^ {
+    case expression ~ suite ~ Some(elif) => IfElseInstr(expression, suite, elif)
+    case expression ~ suite ~ None => IfInstr(expression, suite)
+  }
+
+  // TODO: Second case is unreachable :(
+  def elif_else_stmt: Parser[Node] =
+  "elif" ~> expression ~ (":" ~> suite) ~ (elif_else_stmt | ("else" ~ ":" ~> suite)).? ^^ {
+    case expression ~ suite ~ Some(elif_else_stmt) => IfElseInstr(expression,suite,elif_else_stmt)
+    case expression ~ suite ~ Some(suite2) => IfElseInstr(expression,suite,suite2)
+    case expression ~ suite ~ None => IfInstr(expression,suite)
+  }
 
   def while_stmt: Parser[WhileInstr] = "while" ~> expression ~ (":"~>suite) ^^ {
       case expression ~ suite => WhileInstr(expression, suite)
