@@ -18,6 +18,10 @@ sealed abstract class Node {
     val indent = " " * 4
 }
 
+case class DeadInstr() extends Node {
+  override def toStr = ""
+}
+
 case class IntNum(value: Integer) extends Node {
     override def toStr = value.toString
 }

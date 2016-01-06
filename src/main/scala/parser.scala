@@ -8,7 +8,8 @@ class Parser extends JavaTokenParsers {
   val precedenceList: List[List[String]] = List( 
       List("is", ">=", "<=", "==", "!=", "<", ">"), // order matters also within inner list, longer op should go before shorter one, e.g. "<=" before "<", if one is a prefix of another
       List("+", "-"),
-      List("*", "/", "%")
+      List("*", "/", "%"),
+      List("**")
   )
 
   val minPrec = 0
@@ -106,10 +107,9 @@ class Parser extends JavaTokenParsers {
   }
 
 
-  def binary(level: Int): Parser[Node] = (
-      if (level>maxPrec) unary
-      else chainl1( binary(level+1), binaryOp(level) ) // equivalent to binary(level+1) * binaryOp(level)
-  )
+  def binary(level: Int): Parser[Node] =
+    if (level > maxPrec) unary
+    else chainl1(binary(level + 1), binaryOp(level))
 
   // operator precedence parsing takes place here
   def binaryOp(level: Int): Parser[((Node, Node) => BinExpr)] = {
@@ -144,10 +144,10 @@ class Parser extends JavaTokenParsers {
   }
 
   def trailer: Parser[List[Tuple2[String,Node]]] = rep( 
-                                                     "(" ~> expr_list <~")" ^^ { case expr_list => Tuple2("(", expr_list) }
-                                                   | "[" ~> expression <~"]" ^^ { case expression => Tuple2("[", expression) }
-                                                   | "." ~> id ^^ { case id => Tuple2(".", Variable(id)) }
-                                                 )
+      "(" ~> expr_list <~")" ^^ { case expr_list => Tuple2("(", expr_list) }
+      | "[" ~> expression <~"]" ^^ { case expression => Tuple2("[", expression) }
+      | "." ~> id ^^ { case id => Tuple2(".", Variable(id)) }
+      )
 
   def foldTrailer(head: Node, list: List[Tuple2[String,Node]]): Node = {
       list match {
