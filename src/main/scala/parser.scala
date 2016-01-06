@@ -228,17 +228,17 @@ class Parser extends JavaTokenParsers {
   // Elif is just a syntactic sugar and is not represented in the tree
   // This is done not too elegantly however it might be the simplest way
   def if_else_stmt: Parser[Node] =
-    "if" ~> expression ~ (":" ~> suite) ~ elif_else_stmt.? ^^ {
-    case expression ~ suite ~ Some(elif) => IfElseInstr(expression, suite, elif)
-    case expression ~ suite ~ None => IfInstr(expression, suite)
+    "if" ~> expression ~ (":" ~> suite) ~ elif_else_stmt.? ~ ("else" ~ ":" ~> suite).? ^^ {
+    case expression ~ suite ~ Some(elif) ~ None => IfElseInstr(expression, suite, elif)
+    case expression ~ suite1 ~ None ~ Some(suite2) => IfElseInstr(expression, suite1,suite2)
+    case expression ~ suite1 ~ None ~ None => IfInstr(expression, suite1)
   }
 
-  // TODO: Second case is unreachable :(
   def elif_else_stmt: Parser[Node] =
-  "elif" ~> expression ~ (":" ~> suite) ~ (elif_else_stmt | ("else" ~ ":" ~> suite)).? ^^ {
-    case expression ~ suite ~ Some(elif_else_stmt) => IfElseInstr(expression,suite,elif_else_stmt)
-    case expression ~ suite ~ Some(suite2) => IfElseInstr(expression,suite,suite2)
-    case expression ~ suite ~ None => IfInstr(expression,suite)
+  "elif" ~> expression ~ (":" ~> suite) ~ elif_else_stmt.? ~ ("else" ~ ":" ~> suite).? ^^ {
+    case expression ~ suite ~ Some(elif_else_stmt) ~ None => IfElseInstr(expression,suite,elif_else_stmt)
+    case expression ~ suite ~ None ~ Some(suite2) => IfElseInstr(expression,suite,suite2)
+    case expression ~ suite ~ None ~ None => IfInstr(expression,suite)
   }
 
   def while_stmt: Parser[WhileInstr] = "while" ~> expression ~ (":"~>suite) ^^ {
