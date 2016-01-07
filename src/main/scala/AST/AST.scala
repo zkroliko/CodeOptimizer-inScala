@@ -1,5 +1,7 @@
 package AST
 
+import scala.math.Ordered._
+
 object Priority {
     val binary = Map("lambda"->1,
                      "or"->2,
@@ -22,12 +24,21 @@ case class DeadInstr() extends Node {
   override def toStr = ""
 }
 
-case class IntNum(value: Integer) extends Node {
+case class IntNum(value: Integer) extends Node with Ordered[IntNum] {
     override def toStr = value.toString
+
+  override def compare(that: IntNum): Int = this.value compare that.value
+
+  override def <(that: IntNum): Boolean = this.value < that.value
+  override def <=(that: IntNum): Boolean = this.value <= that.value
+  override def >(that: IntNum): Boolean = this.value > that.value
+  override def >=(that: IntNum): Boolean = this.value >= that.value
 }
 
-case class FloatNum(value: Double) extends Node {
+case class FloatNum(value: Double) extends Node with Ordered[FloatNum] {
     override def toStr = value.toString
+
+  override def compare(that: FloatNum): Int = this.value compare that.value
 }
 
 case class StringConst(value: String) extends Node {

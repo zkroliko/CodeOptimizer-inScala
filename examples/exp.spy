@@ -9,7 +9,12 @@ concatenatedList = [a,b,c]+[x,y]
 
 slownik = { "a": 1, "b": 2, "a": 3 }
 
-while (false):
+while (2 != 2):
+{
+    4
+}
+
+if (2 > 3):
 {
     4
 }
