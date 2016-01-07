@@ -11,13 +11,22 @@ import AST._
 object Simplifier {
 
 
-  def parseArithmetic[T](op: String, x: T, y: T)(implicit n: Numeric[T]): T = op match {
-    case "+" => new T(n.plus(x,y))
-    case "-" => new T(n.minus(x,y))
-    case "*" => new T(n.times(x,y))
-    case "/" => new T(n.toDouble(x)/n.toDouble(y))
-    case "%" => new T(n.toInt(x)%n.toInt(y))
-    case "**" => new T(pow(n.toDouble(x), n.toDouble(y)).toInt)
+  def parseIntArithmetic(op: String, x: Int, y: Int) = op match {
+    case "+" => IntNum(x+y)
+    case "-" => IntNum(x-y)
+    case "*" => IntNum(x*y)
+    case "/" => IntNum(x/y)
+    case "%" => IntNum(x%y)
+    case "**" => IntNum(pow(x.toDouble, y.toDouble).toInt)
+  }
+
+  def parseDoubleArithmetic(op: String, x: Double, y: Double) = op match {
+    case "+" => FloatNum(x+y)
+    case "-" => FloatNum(x-y)
+    case "*" => FloatNum(x*y)
+    case "/" => FloatNum(x/y)
+    case "%" => FloatNum(x%y)
+    case "**" => FloatNum(pow(x, y))
   }
 
   // A bit of magic
@@ -77,25 +86,27 @@ object Simplifier {
 
     case BinExpr(op, IntNum(x), IntNum(y)) =>
       op match {
-
+        case "+" | "-"| "*"| "/"| "%"| "**" => parseIntArithmetic(op,x,y)
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Integer](op,x,y)
       }
 
     case BinExpr(op, FloatNum(x), FloatNum(y)) =>
       op match {
+        case "+" | "-"| "*"| "/"| "%"| "**" => parseDoubleArithmetic(op,x,y)
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y)
       }
 
     case BinExpr(op, IntNum(x), FloatNum(y)) =>
       op match {
+        case "+" | "-"| "*"| "/"| "%"| "**" => parseDoubleArithmetic(op,x.doubleValue(),y)
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x.doubleValue(),y)
       }
 
     case BinExpr(op, FloatNum(x), IntNum(y)) =>
       op match {
+        case "+" | "-"| "*"| "/"| "%"| "**" => parseDoubleArithmetic(op,x,y.doubleValue())
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
-
 
 //    Don't know how to do this
 //    case FunDef(fun) => fun match {

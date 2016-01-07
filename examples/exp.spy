@@ -1,6 +1,8 @@
 res = 0+0
 res = res
 
+boolean = 5 > 3
+
 kr = (a,b,c)
 
 krConcatenated = (a,b,c) + (d,e,f)
