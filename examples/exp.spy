@@ -1,6 +1,10 @@
 res = 0+0
 res = res
 
+kr = (a,b,c)
+
+krConcatenated = (a,b,c) + (d,e,f)
+
 concatenatedList = [a,b,c]+[x,y]
 
 while (false):

@@ -114,27 +114,34 @@ class Parser extends JavaTokenParsers {
   // operator precedence parsing takes place here
   def binaryOp(level: Int): Parser[((Node, Node) => BinExpr)] = {
     precedenceList(level).map {
-        op => op ^^^ { ((a:Node, b:Node) => BinExpr(op,a,b)) }
-    }.reduce( (head, tail) => head | tail)
+      op => op ^^^ {
+        ((a: Node, b: Node) => BinExpr(op, a, b))
+      }
+    }.reduce((head, tail) => head | tail)
   }
-  
+
 
   def unary: Parser[Node] = (
-        ("+"|"-")~unary ^^ { case "+" ~ expression => expression
-                             case "-" ~ expression => Unary("-", expression) 
-                           }
+    ("+" | "-") ~ unary ^^ {
+      case "+" ~ expression => expression
+      case "-" ~ expression => Unary("-", expression)
+    }
       | primary
-  )
+    )
 
 
   def primary: Parser[Node] = (
         lvalue
       | const
       | "("~>expression<~")"
-      | "["~>expr_list_comma<~"]" ^^ { 
+      | "["~>expr_list_comma<~"]" ^^ {
           case NodeList(x) => ElemList(x)
-          case l => { println("Warn: expr_list_comma didn't return NodeList"); l }
-         }
+          case l => println("Warn: expr_list_comma didn't return NodeList"); l
+        }
+      | "("~>expr_list_comma<~")" ^^ {
+          case NodeList(x) => Tuple(x)
+          case l => println("Warn: expr_list_comma [tuple] didn't return NodeList"); l
+      }
       | "{"~>key_datum_list<~"}"
   )
 
