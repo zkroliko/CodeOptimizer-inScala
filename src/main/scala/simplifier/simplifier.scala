@@ -15,6 +15,11 @@ object Simplifier {
     case BinExpr("+", ElemList(first), ElemList(second)) => ElemList((first ++ second) map simplify)
 
     // Removing duplicates from dictionaries
+    // It associates keys of keyDatums with the whole objects,
+    // then maps the resulting list to objects, leaving out duplicates
+    case KeyDatumList(list) => KeyDatumList(list.foldLeft(Map.empty[Node, KeyDatum])(
+      (map, keyDatum) => map + (keyDatum.key -> keyDatum)
+    ).toList.map(x => x._2))
 
     // Removing if's with false condition
     case IfElseInstr(cond, left, right) =>

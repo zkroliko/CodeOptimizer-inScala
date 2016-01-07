@@ -7,6 +7,8 @@ krConcatenated = (a,b,c) + (d,e,f)
 
 concatenatedList = [a,b,c]+[x,y]
 
+slownik = { "a": 1, "b": 2, "a": 3 }
+
 while (false):
 {
     4
