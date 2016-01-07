@@ -26,6 +26,11 @@ def gcd(m, n):
     res = 0+0
     res = res
 
+    if (273.23 > 324.34):
+    {
+        true
+    }
+
     while (false):
     {
         4

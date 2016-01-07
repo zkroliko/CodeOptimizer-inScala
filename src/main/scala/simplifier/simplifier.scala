@@ -108,10 +108,10 @@ object Simplifier {
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
 
-//    Don't know how to do this
-//    case FunDef(fun) => fun match {
-//      case (name, formal_args, body) => FunDef(name, simplify(formal_args), simplify(body))
-//    }
+    //    Don't know how to do this
+    case FunDef(name,args,body) =>
+      FunDef(name,simplify(args),simplify(body))
+
 
     case NodeList(list) => NodeList(list map simplify)
 
