@@ -3,13 +3,13 @@ res = res
 
 boolean = 5 > 3
 
-kr = (a,b,c)
+kr = (a,b,2+2)
 
 krConcatenated = (a,b,c) + (d,e,f)
 
 concatenatedList = [a,b,c]+[x,y]
 
-slownik = { "a": 1, "b": 2, "a": 3 }
+slownik = { "a": 3, "b": 2, "a": 3 }
 
 while (2 != 2):
 {
@@ -21,7 +21,7 @@ if (2 > 3):
     4
 }
 
-def gcd(m, n):
+def some(m, n):
 {
     res = 0+0
     res = res
@@ -37,5 +37,8 @@ def gcd(m, n):
     }
 }
 
+some(1+1,2+2)
+
+print(14+4.0)
 
 

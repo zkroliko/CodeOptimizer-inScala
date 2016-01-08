@@ -147,7 +147,6 @@ case class PrintInstr(expr: Node) extends Node {
 }
 
 case class FunCall(name: Node, args_list: Node) extends Node {
-
     override def toStr = {
         args_list match {
             case NodeList(list) => name.toStr + "(" + list.map(_.toStr).mkString("", ",", "") + ")"

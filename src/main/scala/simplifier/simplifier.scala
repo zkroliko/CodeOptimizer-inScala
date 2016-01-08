@@ -108,12 +108,26 @@ object Simplifier {
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
 
-    //    Don't know how to do this
     case FunDef(name,args,body) =>
       FunDef(name,simplify(args),simplify(body))
 
+    case FunCall(name,args) =>
+      FunCall(name,simplify(args))
+
+    case PrintInstr(expr) =>
+      PrintInstr(simplify(expr))
+
+    case LambdaDef(args,body) =>
+      LambdaDef(simplify(args),simplify(body))
+
+    case ClassDef(name,inh,suite) =>
+      ClassDef(name,inh,simplify(suite))
 
     case NodeList(list) => NodeList(list map simplify)
+
+    case ElemList(list) => ElemList(list map simplify)
+
+    case Tuple(list) => Tuple(list map simplify)
 
     // Nothing can be simplified:
 //    case node => StringConst(node.getClass.toString)
