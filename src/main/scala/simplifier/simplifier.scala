@@ -110,6 +110,7 @@ object Simplifier {
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
 
+
     // Here a duplication for floats was required, cannot create object of generic type
     case BinExpr(op, Variable(name), IntNum(num)) =>
       Integer2int(num) match {
@@ -177,11 +178,14 @@ object Simplifier {
         case _ => BinExpr(op, Variable(name), FloatNum(num))
     }
 
-//    case BinExpr(op, Variable(first), Variable(second)) => first match {
-//      case second => op match {
-//        case "/" | "%" => IntNum(1)
-//      }
-//    }
+    case BinExpr(op, Variable(first), Variable(second)) => first match {
+      case `second` => op match {
+        case "/" | "%" => IntNum(1)
+        case "-" => IntNum(0)
+        case _ => BinExpr(op, Variable(first), Variable(second))
+      }
+      case _ => BinExpr(op, Variable(first), Variable(second))
+    }
 
     case Variable(name) => name match {
       case _ => Variable(name);
