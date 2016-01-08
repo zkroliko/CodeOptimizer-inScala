@@ -1,6 +1,7 @@
-
 res = 0+0
 res = res
+
+(x==x) and (2 > 3)
 
 boolean = 5 > 3
 

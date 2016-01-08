@@ -113,15 +113,42 @@ object Simplifier {
       }
 
     case BinExpr("==", x, y) if x == y => TrueConst()
+    case BinExpr("!=", x,y)  if x == y => FalseConst()
     case BinExpr(">=", x,y)  if x == y => TrueConst()
     case BinExpr("<=", x,y)  if x == y => TrueConst()
-    case BinExpr("!=", x,y)  if x == y => FalseConst()
     case BinExpr("<", x,y)   if x == y => FalseConst()
     case BinExpr(">", x,y)   if x == y => FalseConst()
     case BinExpr("or", x ,y) if x == y => x
     case BinExpr("and", x,y) if x == y => x
 
-    // Unary expressions
+    case BinExpr("and", left, right) =>
+      (simplify(left), simplify(right)) match {
+        case (_ , FalseConst()) => FalseConst()
+        case (FalseConst(), _) => FalseConst()
+        case (expr, TrueConst()) => expr
+        case (TrueConst(), expr) => expr
+        case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
+        case (exprLeft, exprRight) =>
+          if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
+            simplify(BinExpr("and", exprLeft, exprRight))
+          else BinExpr("and", exprLeft, exprRight)
+      }
+
+    case BinExpr("or", left, right) =>
+      (simplify(left), simplify(right)) match {
+        case (_ , TrueConst()) => TrueConst()
+        case (TrueConst(), _) => TrueConst()
+        case (expr, FalseConst()) => expr
+        case (FalseConst(), expr) => expr
+        case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
+        case (exprLeft, exprRight) =>
+          if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
+            simplify(BinExpr("or", exprLeft, exprRight))
+          else BinExpr("or", exprLeft, exprRight)
+      }
+
+
+    //        --- Unary expressions ---
 
     case Unary("not", expr) => expr match {
       case BinExpr("==", left, right) => simplify(BinExpr("!=", left, right))
@@ -139,6 +166,14 @@ object Simplifier {
       case expr2 => Unary("not", simplify(expr2))
     }
 
+    case Unary("-", expr) => expr match {
+      case Unary("-", expr2) => simplify(expr2) // --x
+      case IntNum(x)         => IntNum(-x)
+      case FloatNum(x)       => FloatNum(-x)
+      case expr2             => Unary("-", simplify(expr2))
+    }
+
+    //      --- Arithmetic expressions ---
 
     // Here a duplication for floats was required, cannot create object of generic type
     case BinExpr(op, Variable(name), IntNum(num)) =>
