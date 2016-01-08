@@ -147,7 +147,6 @@ object Simplifier {
           else BinExpr("or", exprLeft, exprRight)
       }
 
-
     //        --- Unary expressions ---
 
     case Unary("not", expr) => expr match {

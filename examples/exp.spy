@@ -33,7 +33,7 @@ def some(m, n):
         true
     }
 
-    while (false):
+    while (False):
     {
         4
     }

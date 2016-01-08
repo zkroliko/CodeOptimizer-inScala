@@ -54,6 +54,12 @@ case class FalseConst() extends Node {
 }
 
 case class Variable(name: String) extends Node {
+//    def this(name: String) {
+//      this(name,Nothing)
+//    }
+//    def this(name: String, assignment: Assignment) {
+//      this(name,assignment)
+//    }
     override def toStr = name
 }
 

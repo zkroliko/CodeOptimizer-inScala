@@ -28,6 +28,7 @@ class Parser extends JavaTokenParsers {
                                  "class\\b".r |
                                  "def\\b".r |
                                  "else\\b".r |
+                                 "elif\\b".r |
                                  "False\\b".r |
                                  "if\\b".r |
                                  "is\\b".r |
