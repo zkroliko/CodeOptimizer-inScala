@@ -1,6 +1,7 @@
 package simplifier
 
 import math.pow
+import scala.Int
 import scala.math.Ordered._
 
 import AST._
@@ -73,6 +74,7 @@ object Simplifier {
     // Removing loops with false condition
     case WhileInstr(cond, body) =>
       val simplifiedCond = simplify(cond)
+      println (cond + "=>" + simplify(cond))
       simplifiedCond match {
         case FalseConst() => DeadInstr()
         case _ => WhileInstr(simplifiedCond, simplify(body))
@@ -108,6 +110,43 @@ object Simplifier {
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
 
+    // Here a duplication was required, cannot create object of generic type
+    case BinExpr(op, Variable(name), IntNum(num)) =>
+      Integer2int(num) match {
+        case 0 => op match {
+          case "-" | "+" => Variable(name)
+          case "*" => DeadInstr()
+          case "/" | "%" => throw new ArithmeticException(op + " by 0")
+          case "**" => IntNum(1)
+          case _ => BinExpr(op, Variable(name), IntNum(num))
+        }
+        case 1 => op match {
+          case "*" | "/" | "%" | "**" => Variable(name)
+          case _ => BinExpr(op, Variable(name), IntNum(num))
+        }
+        case _ => BinExpr(op, Variable(name), IntNum(num))
+      }
+
+    case BinExpr(op, Variable(name), FloatNum(num)) =>
+      num match {
+        case 0 => op match {
+          case "-" | "+" => Variable(name)
+          case "*" => DeadInstr()
+          case "/" | "%" => throw new ArithmeticException(op + " by 0")
+          case "**" => FloatNum(1)
+          case _ => BinExpr(op, Variable(name), FloatNum(num))
+        }
+        case 1 => op match {
+          case "*" | "/" | "%" | "**" => Variable(name)
+          case _ => BinExpr(op, Variable(name), FloatNum(num))
+        }
+        case _ => BinExpr(op, Variable(name), FloatNum(num))
+      }
+
+    case Variable(name) => name match {
+      case _ => Variable(name);
+    }
+
     case KeyDatum(key,value) =>
       KeyDatum(key,simplify(value))
 
@@ -126,7 +165,18 @@ object Simplifier {
     case ClassDef(name,inh,suite) =>
       ClassDef(name,inh,simplify(suite))
 
-    case NodeList(list) => NodeList(list map simplify)
+    case NodeList(list) => list match {
+      case Nil => DeadInstr()
+      // One element list
+      case (first :: Nil) => first match {
+        case DeadInstr() => DeadInstr()
+        case NodeList(list) => simplify(NodeList(list map simplify))
+        case node =>
+          val simplifiedN = simplify(node)
+          if (simplifiedN != node) simplify(NodeList(List(simplify(node)))) else NodeList(List(simplifiedN))
+      }
+      case _ => NodeList(list map simplify)
+    }
 
     case ElemList(list) => ElemList(list map simplify)
 
