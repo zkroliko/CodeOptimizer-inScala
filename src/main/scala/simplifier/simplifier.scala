@@ -301,7 +301,7 @@ object Simplifier {
       //   TODO: Moze da sie to zrobic piekniej - 8 kombinacji
 
       case (Assignment(fLeft, fRight):: Assignment(left, right) :: Nil) => fLeft match {
-        case left => simplify(Assignment(fLeft, right))
+        case left => NodeList(simplify(Assignment(fLeft, right)) :: Nil)
       }
       case (Assignment(fLeft, fRight):: Assignment(left, right) :: rest) => fLeft match {
         case left => NodeList((Assignment(fLeft, right) :: rest) map simplify)

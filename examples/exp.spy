@@ -3,9 +3,6 @@ x=a; x=b;
 b=e
 a=b
 c=a
-d=c
-b=0
-d=c
 
 res = 0+0
 res = res
