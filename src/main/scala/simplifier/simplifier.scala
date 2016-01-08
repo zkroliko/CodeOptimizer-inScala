@@ -2,6 +2,7 @@ package simplifier
 
 import math.pow
 import scala.Int
+import scala.collection.immutable.::
 import scala.math.Ordered._
 
 import AST._
@@ -81,18 +82,18 @@ object Simplifier {
       }
 
     // Removing assignments to itself
-    // also checking for a=b; c=b using map
+    // also checking for a=b; c=b using map - not in specification
     case Assignment(Variable(left), expr) => expr match {
       case Variable(y) if left == y => DeadInstr()
       case _ => expr match {
         case Variable(right) => variableAssignments get Variable(right) match {
           case Some(Variable(original)) =>
             variableAssignments += (Variable(left) -> Variable(right) )
-            println(variableAssignments.keys)
+            //println(variableAssignments.keys)
             Assignment(Variable(left), Variable(original))
           case None => // Hasn't been assigned yet
             variableAssignments += (Variable(left) -> Variable(right) )
-            println(variableAssignments.keys)
+            //println(variableAssignments.keys)
             Assignment(Variable(left), simplify(expr))
         }
         case _ => Assignment(Variable(left), simplify(expr))
@@ -295,8 +296,39 @@ object Simplifier {
           val simplifiedN = simplify(node)
           if (simplifiedN != node) simplify(NodeList(List(simplify(node)))) else NodeList(List(simplifiedN))
       }
+      // ----------- Peephole optimization x=a; x=b => x=b -------------
+
+      //   TODO: Moze da sie to zrobic piekniej - 8 kombinacji
+
+      case (Assignment(fLeft, fRight):: Assignment(left, right) :: Nil) => fLeft match {
+        case left => simplify(Assignment(fLeft, right))
+      }
+      case (Assignment(fLeft, fRight):: Assignment(left, right) :: rest) => fLeft match {
+        case left => NodeList((Assignment(fLeft, right) :: rest) map simplify)
+      }
+      case (Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: Nil) => fLeft match {
+        case left => NodeList((middle :: Assignment(fLeft, right) :: Nil) map simplify)
+      }
+      case (Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: rest) => fLeft match {
+        case left => NodeList((middle :: Assignment(fLeft, right) :: rest) map simplify)
+      }
+      case (head :: Assignment(fLeft, fRight) :: Assignment(left, right) :: Nil) => fLeft match {
+        case left => NodeList((head :: Assignment(fLeft, right) :: Nil) map simplify)
+      }
+      case (head :: Assignment(fLeft, fRight):: Assignment(left, right) :: rest) => fLeft match {
+        case left => NodeList((head :: Assignment(fLeft, right) :: rest) map simplify)
+      }
+      case (head :: Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: Nil) => fLeft match {
+        case left => NodeList((head :: middle :: Assignment(fLeft, right) :: Nil) map simplify)
+      }
+      case (head :: Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: rest) => fLeft match {
+        case left => NodeList((head :: middle :: Assignment(fLeft, right) :: rest) map simplify)
+      }
+
+
       case _ => NodeList(list map simplify)
     }
+
 
     case ElemList(list) => ElemList(list map simplify)
 

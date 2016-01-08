@@ -1,0 +1,15 @@
+x=a; x=b;
+x=a; x=b ;"hakuna matata";
+x=a; "jak pieknie to brzmi" ; x=b;
+x=a; "jak pieknie to brzmi" ; x=b; "hakuna matata"
+"hakuna matata1"; x=a; x=b;
+"hakuna matata1"; x=a; x=b; "hakuna matata"
+"hakuna matata1"; x=a; x=b; "jak pieknie to brzmi"
+"hakuna matata1"; x=a; x=b; "jak pieknie to brzmi" ; "hakuna matata"
+
+def placeholder(a):
+{
+    return 4
+}
+
+placeholder(3)
