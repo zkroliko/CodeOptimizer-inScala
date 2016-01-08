@@ -108,6 +108,9 @@ object Simplifier {
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
 
+    case KeyDatum(key,value) =>
+      KeyDatum(key,simplify(value))
+
     case FunDef(name,args,body) =>
       FunDef(name,simplify(args),simplify(body))
 
