@@ -11,6 +11,7 @@ import AST._
 // take into account non-greedy strategies to resolve cases with power laws
 object Simplifier {
 
+  var variableAssignments:Map[Node,Node] = Map()
 
   def parseIntArithmetic(op: String, x: Int, y: Int) = op match {
     case "+" => IntNum(x+y)
@@ -74,16 +75,28 @@ object Simplifier {
     // Removing loops with false condition
     case WhileInstr(cond, body) =>
       val simplifiedCond = simplify(cond)
-      println (cond + "=>" + simplify(cond))
       simplifiedCond match {
         case FalseConst() => DeadInstr()
         case _ => WhileInstr(simplifiedCond, simplify(body))
       }
 
     // Removing assignments to itself
-    case Assignment(Variable(x), expr) => expr match {
-      case Variable(y) if x == y => DeadInstr()
-      case _ => Assignment(Variable(x), simplify(expr))
+    // also checking for a=b; c=b using map
+    case Assignment(Variable(left), expr) => expr match {
+      case Variable(y) if left == y => DeadInstr()
+      case _ => expr match {
+        case Variable(right) => variableAssignments get Variable(right) match {
+          case Some(Variable(original)) =>
+            variableAssignments += (Variable(left) -> Variable(right) )
+            println(variableAssignments.keys)
+            Assignment(Variable(left), Variable(original))
+          case None => // Hasn't been assigned yet
+            variableAssignments += (Variable(left) -> Variable(right) )
+            println(variableAssignments.keys)
+            Assignment(Variable(left), simplify(expr))
+        }
+        case _ => Assignment(Variable(left), simplify(expr))
+      }
     }
 
     // Logical simplifications
