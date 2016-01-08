@@ -86,6 +86,8 @@ object Simplifier {
       case _ => Assignment(Variable(x), simplify(expr))
     }
 
+    // Logical simplifications
+
     case BinExpr(op, IntNum(x), IntNum(y)) =>
       op match {
         case "+" | "-"| "*"| "/"| "%"| "**" => parseIntArithmetic(op,x,y)
@@ -109,6 +111,33 @@ object Simplifier {
         case "+" | "-"| "*"| "/"| "%"| "**" => parseDoubleArithmetic(op,x,y.doubleValue())
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
+
+    case BinExpr("==", x, y) if x == y => TrueConst()
+    case BinExpr(">=", x,y)  if x == y => TrueConst()
+    case BinExpr("<=", x,y)  if x == y => TrueConst()
+    case BinExpr("!=", x,y)  if x == y => FalseConst()
+    case BinExpr("<", x,y)   if x == y => FalseConst()
+    case BinExpr(">", x,y)   if x == y => FalseConst()
+    case BinExpr("or", x ,y) if x == y => x
+    case BinExpr("and", x,y) if x == y => x
+
+    // Unary expressions
+
+    case Unary("not", expr) => expr match {
+      case BinExpr("==", left, right) => simplify(BinExpr("!=", left, right))
+      case BinExpr("!=", left, right) => simplify(BinExpr("==", left, right))
+      case BinExpr("<=", left, right) => simplify(BinExpr(">",  left, right))
+      case BinExpr(">=", left, right) => simplify(BinExpr("<",  left, right))
+      case BinExpr("<", left, right) => simplify(BinExpr(">=", left, right))
+      case BinExpr(">", left, right) => simplify(BinExpr("<=", left, right))
+
+      case TrueConst() => FalseConst()
+      case FalseConst() => TrueConst()
+
+      case Unary("not", expr2) => simplify(expr2) // double negation
+
+      case expr2 => Unary("not", simplify(expr2))
+    }
 
 
     // Here a duplication for floats was required, cannot create object of generic type
