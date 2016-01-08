@@ -189,79 +189,83 @@ object Simplifier {
     //      --- Arithmetic expressions ---
 
     // Here a duplication for floats was required, cannot create object of generic type
-    case BinExpr(op, Variable(name), IntNum(num)) =>
-      Integer2int(num) match {
+    case BinExpr(op, left, right) => simplify(right) match {
+      case IntNum(num) => Integer2int(num) match {
         case 0 => op match {
-          case "-" | "+" => Variable(name)
+          case "-" | "+" => left
           case "*" => DeadInstr()
           case "/" | "%" => throw new ArithmeticException(op + " by 0")
           case "**" => IntNum(1)
-          case _ => BinExpr(op, Variable(name), IntNum(num))
+          case _ => BinExpr(op, left, IntNum(num))
         }
         case 1 => op match {
-          case "*" | "/" | "%" | "**" => Variable(name)
-          case _ => BinExpr(op, Variable(name), IntNum(num))
+          case "*" | "/" | "%" | "**" => left
+          case _ => BinExpr(op, left, IntNum(num))
         }
-        case _ => BinExpr(op, Variable(name), IntNum(num))
+        case _ => BinExpr(op, left, IntNum(num))
       }
 
-    // Other way around
-    case BinExpr(op, IntNum(num), Variable(name)) =>
-      Integer2int(num) match {
+      case FloatNum(num) => num match {
         case 0 => op match {
-          case "-" | "+" => Variable(name)
-          case "*" => DeadInstr()
-          case "**" => IntNum(0)
-          case _ => BinExpr(op, Variable(name), IntNum(num))
-        }
-        case 1 => op match {
-          case "*" => Variable(name)
-          case "**" => IntNum(1)
-          case _ => BinExpr(op, Variable(name), IntNum(num))
-        }
-        case _ => BinExpr(op, Variable(name), IntNum(num))
-      }
-
-    case BinExpr(op, Variable(name), FloatNum(num)) =>
-      num match {
-        case 0 => op match {
-          case "-" | "+" => Variable(name)
+          case "-" | "+" => left
           case "*" => DeadInstr()
           case "/" | "%" => throw new ArithmeticException(op + " by 0")
           case "**" => FloatNum(1)
-          case _ => BinExpr(op, Variable(name), FloatNum(num))
+          case _ => BinExpr(op, left, FloatNum(num))
         }
         case 1 => op match {
-          case "*" | "/" | "%" | "**" => Variable(name)
-          case _ => BinExpr(op, Variable(name), FloatNum(num))
+          case "*" | "/" | "%" | "**" => left
+          case _ => BinExpr(op, left, FloatNum(num))
         }
-        case _ => BinExpr(op, Variable(name), FloatNum(num))
+        case _ => BinExpr(op, left, FloatNum(num))
       }
 
-    // Other way around
-    case BinExpr(op, FloatNum(num), Variable(name)) =>
-      num match {
-        case 0 => op match {
-          case "-" | "+" => Variable(name)
-          case "*" => DeadInstr()
-          case "**" => FloatNum(0)
-          case _ => BinExpr(op, Variable(name), FloatNum(num))
-        }
-        case 1 => op match {
-          case "*" => Variable(name)
-          case "**" => FloatNum(1)
-          case _ => BinExpr(op, Variable(name), FloatNum(num))
-        }
-        case _ => BinExpr(op, Variable(name), FloatNum(num))
-    }
-
-    case BinExpr(op, Variable(first), Variable(second)) => first match {
-      case `second` => op match {
+      // Left side is equal to right side
+      case `left` => op match {
         case "/" | "%" => IntNum(1)
         case "-" => IntNum(0)
-        case _ => BinExpr(op, Variable(first), Variable(second))
+        case _ => BinExpr(op, simplify(left), simplify(right))
       }
-      case _ => BinExpr(op, Variable(first), Variable(second))
+
+      case n => simplify(n)
+    }
+
+    // Other way around
+    case BinExpr(op, left, right) => simplify(left) match {
+      case IntNum(num) => Integer2int(num) match {
+          case 0 => op match {
+            case "-" | "+" => right
+            case "*" => DeadInstr()
+            case "**" => IntNum(0)
+            case _ => BinExpr(op, right, IntNum(num))
+          }
+          case 1 => op match {
+            case "*" => right
+            case "**" => IntNum(1)
+            case _ => BinExpr(op, right, IntNum(num))
+          }
+          case _ => BinExpr(op, right, IntNum(num))
+        }
+      case n => simplify(n)
+    }
+
+    // Other way around
+    case BinExpr(op, left, right) => simplify(left) match {
+      case FloatNum(num) => num match {
+        case 0 => op match {
+          case "-" | "+" => right
+          case "*" => DeadInstr()
+          case "**" => FloatNum(0)
+          case _ => BinExpr(op, right, FloatNum(num))
+        }
+        case 1 => op match {
+          case "*" => right
+          case "**" => FloatNum(1)
+          case _ => BinExpr(op, right, FloatNum(num))
+        }
+        case _ => BinExpr(op, right, FloatNum(num))
+      }
+      case n => simplify(n)
     }
 
     case Variable(name) => name match {
