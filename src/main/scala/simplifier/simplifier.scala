@@ -110,7 +110,7 @@ object Simplifier {
         case "==" | "!="| ">"| ">="| "<"| "<=" => parseCompare[Double](op,x,y.doubleValue())
       }
 
-    // Here a duplication was required, cannot create object of generic type
+    // Here a duplication for floats was required, cannot create object of generic type
     case BinExpr(op, Variable(name), IntNum(num)) =>
       Integer2int(num) match {
         case 0 => op match {
@@ -122,6 +122,23 @@ object Simplifier {
         }
         case 1 => op match {
           case "*" | "/" | "%" | "**" => Variable(name)
+          case _ => BinExpr(op, Variable(name), IntNum(num))
+        }
+        case _ => BinExpr(op, Variable(name), IntNum(num))
+      }
+
+    // Other way around
+    case BinExpr(op, IntNum(num), Variable(name)) =>
+      Integer2int(num) match {
+        case 0 => op match {
+          case "-" | "+" => Variable(name)
+          case "*" => DeadInstr()
+          case "**" => IntNum(0)
+          case _ => BinExpr(op, Variable(name), IntNum(num))
+        }
+        case 1 => op match {
+          case "*" => Variable(name)
+          case "**" => IntNum(1)
           case _ => BinExpr(op, Variable(name), IntNum(num))
         }
         case _ => BinExpr(op, Variable(name), IntNum(num))
@@ -142,6 +159,29 @@ object Simplifier {
         }
         case _ => BinExpr(op, Variable(name), FloatNum(num))
       }
+
+    // Other way around
+    case BinExpr(op, FloatNum(num), Variable(name)) =>
+      num match {
+        case 0 => op match {
+          case "-" | "+" => Variable(name)
+          case "*" => DeadInstr()
+          case "**" => FloatNum(0)
+          case _ => BinExpr(op, Variable(name), FloatNum(num))
+        }
+        case 1 => op match {
+          case "*" => Variable(name)
+          case "**" => FloatNum(1)
+          case _ => BinExpr(op, Variable(name), FloatNum(num))
+        }
+        case _ => BinExpr(op, Variable(name), FloatNum(num))
+    }
+
+//    case BinExpr(op, Variable(first), Variable(second)) => first match {
+//      case second => op match {
+//        case "/" | "%" => IntNum(1)
+//      }
+//    }
 
     case Variable(name) => name match {
       case _ => Variable(name);
