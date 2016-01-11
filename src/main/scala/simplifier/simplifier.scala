@@ -196,10 +196,10 @@ object Simplifier {
     //      --- Arithmetic expressions ---
 
     // Here a duplication for floats was required, cannot create object of generic type
-    case BinExpr(op, oLeft, oRight) => println("koza1"); (simplify(oLeft),simplify(oRight)) match {
+    case BinExpr(op, oLeft, oRight) =>  (simplify(oLeft),simplify(oRight)) match {
 
       // Reduction of equal arguments
-      case (left,right) if left==right => println("koza"); op match {
+      case (left,right) if left==right =>  op match {
         case "/" | "%" => IntNum(1)
         case "-" => IntNum(0)
         case _ => simplify(BinExpr(op, left, right))
@@ -207,7 +207,7 @@ object Simplifier {
 
       case (left,right@IntNum(num)) => Integer2int(num) match {
           case 0 => op match {
-            case "-" | "+" => left
+            case "-" | "+" => IntNum(44)
             case "*" => DeadInstr()
             case "/" | "%" => throw new ArithmeticException(op + " by 0")
             case "**" => IntNum(1)
