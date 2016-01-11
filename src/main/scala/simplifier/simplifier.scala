@@ -422,6 +422,6 @@ object Simplifier {
     case Tuple(list) => Tuple(list map simplify)
 
     // Nothing can be simplified:
-    case node => node;
+    case `node` => node;
   }
 }
