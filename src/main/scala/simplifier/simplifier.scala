@@ -308,10 +308,6 @@ object Simplifier {
       case (left, Unary("-", exprU)) if op == "+" => simplify(BinExpr("-", left, exprU))
 
 
-
-
-
-
       case (extLeft, extRight) => op match {
 
         case "+" => (extLeft, extRight) match {
@@ -319,6 +315,10 @@ object Simplifier {
 
           // Distributive property of multiplication:
 
+          case (BinExpr("*", inLeft, inRight), right) if right == inLeft => // a*b+a = a(b+1)
+            simplify(BinExpr("*", BinExpr("+", inRight, IntNum(1)), inLeft))
+          case (BinExpr("*", inLeft, inRight), right) if right == inRight => // a*b+b = b(a+1)
+            simplify(BinExpr("*", BinExpr("+", inLeft, IntNum(1)), inRight))
 
           // Distributive properties of division :
 
@@ -349,6 +349,11 @@ object Simplifier {
 
 
           // Distributive property of multiplication:
+
+          case (BinExpr("*", inLeft, inRight), right) if right == inLeft => // a*b-a = a(b-1)
+            simplify(BinExpr("*", BinExpr("-", inRight, IntNum(1)), inLeft))
+          case (BinExpr("*", inLeft, inRight), right) if right == inRight => // a*b-b = b(a-1)
+            simplify(BinExpr("*", BinExpr("-", inLeft, IntNum(1)), inRight))
 
 
           // Distributive properties of division :
