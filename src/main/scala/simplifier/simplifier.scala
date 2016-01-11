@@ -292,6 +292,7 @@ object Simplifier {
         if a == 2 && b == 2 && c == 2 && ((x1 == y2 && x2 == y3) || (x1 == x2 && y2 == y3)) && op == "+" =>
         simplify(BinExpr("**", BinExpr("+", x1, y3), IntNum(2)))
 
+      // Power laws
       // x^^y*x^z == x^^(y+z) and so on
       case (BinExpr("**", x1, y1), BinExpr("**", x2, y2)) if x1 == x2 && op == "*" =>
         simplify(BinExpr("**", x1, BinExpr("+", y1, y2)))
@@ -311,6 +312,16 @@ object Simplifier {
       case (extLeft, extRight) => op match {
 
         case "+" => (extLeft, extRight) match {
+
+          // Commutative property of addition
+
+//          case (var1@Variable(name), var2@Variable(name2)) =>
+//            if (name.compareTo(name2) > 0)
+//              BinExpr("+",Variable(name),Variable(name2))
+//            else
+//              BinExpr("+",Variable(name2),Variable(name))
+
+
 
           // Distributive property of multiplication:
 
@@ -349,10 +360,9 @@ object Simplifier {
             // Checking if simplification goes further
             val sL = simplify(left)
             val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
+            if (sL != left || sR != right) simplify(BinExpr("+", sL, sR)) else BinExpr("+", sL, sR)
         }
         case "-" => (extLeft, extRight) match {
-
 
           // Distributive property of multiplication:
 
@@ -378,7 +388,6 @@ object Simplifier {
               if (s1 != e1 || s2 != e2) simplify(BinExpr("-", s1, s2)) else BinExpr("-", s1, s2)
             }
 
-
           // Commutative properties of addition and subtraction:
 
           case (left@BinExpr("+", inLeft, inRight), right) =>
@@ -394,6 +403,16 @@ object Simplifier {
             val sL = simplify(left)
             val sR = simplify(right)
             if (sL != left || sR != right) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
+        }
+        // Power laws
+        case "**" => (extLeft, extRight) match {
+          case (BinExpr("**", inLeft, inRight), right) =>
+            simplify(BinExpr("**", inLeft, BinExpr("*", inRight, right))) // a**b**c = a**(b*c)
+          case (left, right) =>
+            // Checking if simplification goes further
+            val sL = simplify(left)
+            val sR = simplify(right)
+            if (sL != left || sR != right) simplify(BinExpr("**", sL, sR)) else BinExpr("**", sL, sR)
         }
         case _ =>
           // Checking if simplification goes further
