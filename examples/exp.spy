@@ -1,4 +1,4 @@
-a*b-b
+(a*b)+(c*a)
 
 def some(m, n):
 {

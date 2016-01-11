@@ -312,8 +312,14 @@ object Simplifier {
 
         case "+" => (extLeft, extRight) match {
 
-
           // Distributive property of multiplication:
+
+          case (left@BinExpr("*", l1, r1), right@BinExpr("*", l2, r2)) =>
+            if (l1 == l2) BinExpr("*", BinExpr("-", r1, r2), l1) // (a*b)+(a*c)
+            else if (r1 == r2) BinExpr("*", BinExpr("-", l1, l2), r1) // (a*b)+(c*b)
+            else if (l1 == r2) BinExpr("*", BinExpr("-", r1, l2), l1) // (a*b)+(c*a)
+            else BinExpr("*", BinExpr("-", l1, r2), r1) // (a*b)+(b*c)
+
 
           case (BinExpr("*", inLeft, inRight), right) if right == inLeft => // a*b+a = a(b+1)
             simplify(BinExpr("*", BinExpr("+", inRight, IntNum(1)), inLeft))
@@ -349,6 +355,12 @@ object Simplifier {
 
 
           // Distributive property of multiplication:
+
+          case (left@BinExpr("*", l1, r1), right@BinExpr("*", l2, r2)) =>
+            if (l1 == l2) BinExpr("*", BinExpr("-", r1, r2), l1) // (a*b)-(a*c)
+            else if (r1 == r2) BinExpr("*", BinExpr("-", l1, l2), r1) // (a*b)-(c*b)
+            else if (l1 == r2) BinExpr("*", BinExpr("-", r1, l2), l1) // (a*b)-(c*a)
+            else BinExpr("*", BinExpr("-", l1, r2), r1) // (a*b)-(b*c)
 
           case (BinExpr("*", inLeft, inRight), right) if right == inLeft => // a*b-a = a(b-1)
             simplify(BinExpr("*", BinExpr("-", inRight, IntNum(1)), inLeft))
