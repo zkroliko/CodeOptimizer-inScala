@@ -1,4 +1,19 @@
-(a+b) - (b) + a
+x+0
+-x+x
+x*1
+1*x
+0*x
+x and x
+x or True
+x or False
+x and False
+x and True
+x==x
+x>=x
+x<=x
+x!=x
+x>x
+x<x
 
 def some(m, n):
 {

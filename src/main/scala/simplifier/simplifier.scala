@@ -207,8 +207,8 @@ object Simplifier {
 
       case (left,right@IntNum(num)) => Integer2int(num) match {
           case 0 => op match {
-            case "-" | "+" => IntNum(44)
-            case "*" => DeadInstr()
+            case "-" | "+" => left
+            case "*" => IntNum(0)
             case "/" | "%" => throw new ArithmeticException(op + " by 0")
             case "**" => IntNum(1)
             case _ => BinExpr(op, left, right)
@@ -222,7 +222,7 @@ object Simplifier {
       case (left,right@FloatNum(num)) => num match {
           case 0 => op match {
             case "-" | "+" => left
-            case "*" => DeadInstr()
+            case "*" => FloatNum(0)
             case "/" | "%" => throw new ArithmeticException(op + " by 0")
             case "**" => FloatNum(1)
             case _ => BinExpr(op, left, right)
@@ -238,7 +238,7 @@ object Simplifier {
           case 0 => op match {
             case "+" => right
             case "-" => simplify(Unary("-", right))
-            case "*" => DeadInstr()
+            case "*" => IntNum(0)
             case "**" => IntNum(0)
             case _ => BinExpr(op, left, right)
           }
@@ -253,7 +253,7 @@ object Simplifier {
           case 0 => op match {
             case "+" => right
             case "-" => simplify(Unary("-", right))
-            case "*" => DeadInstr()
+            case "*" => FloatNum(0)
             case "**" => FloatNum(0)
             case _ => BinExpr(op, left, right)
           }
@@ -315,13 +315,11 @@ object Simplifier {
 
           // Commutative property of addition
 
-//          case (var1@Variable(name), var2@Variable(name2)) =>
-//            if (name.compareTo(name2) > 0)
-//              BinExpr("+",Variable(name),Variable(name2))
-//            else
-//              BinExpr("+",Variable(name2),Variable(name))
-
-
+          case (var1@Variable(name), var2@Variable(name2)) =>
+            if (name.compareTo(name2) < 0)
+              BinExpr("+",Variable(name),Variable(name2))
+            else
+              BinExpr("+",Variable(name2),Variable(name))
 
           // Distributive property of multiplication:
 
@@ -348,7 +346,7 @@ object Simplifier {
               if (s1 != left || s2 != right) simplify(BinExpr("+", s1, s2)) else BinExpr("+", s1, s2)
             }
 
-          // Commutative properties of addition and subtraction:
+          // Associative properties of addition and subtraction:
 
           case (left@BinExpr("-", inLeft, inRight), right) =>
             if (inRight == right) simplify(inLeft)   // (x-y)+y
@@ -388,7 +386,7 @@ object Simplifier {
               if (s1 != e1 || s2 != e2) simplify(BinExpr("-", s1, s2)) else BinExpr("-", s1, s2)
             }
 
-          // Commutative properties of addition and subtraction:
+          // Associative properties of addition and subtraction:
 
           case (left@BinExpr("+", inLeft, inRight), right) =>
             if (inLeft == right) simplify(inRight)            // (x+y)-x
