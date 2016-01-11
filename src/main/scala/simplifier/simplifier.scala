@@ -1,9 +1,7 @@
 package simplifier
 
 import math.pow
-import scala.Int
 import scala.collection.immutable.::
-import scala.math.Ordered._
 
 import AST._
 
@@ -87,9 +85,8 @@ object Simplifier {
       case Variable(y) if left == y => DeadInstr()
       case _ => expr match {
         // x = y if %s else z
-        case IfElseExpr(cond,iLeft,iRight) => {
+        case IfElseExpr(cond,iLeft,iRight) =>
           Assignment(Variable(left),simplify(IfElseInstr(cond,iLeft,iRight)))
-        }
         case Variable(right) => variableAssignments get Variable(right) match {
           case Some(Variable(original)) =>
             variableAssignments += (Variable(left) -> Variable(right) )
@@ -99,6 +96,7 @@ object Simplifier {
             variableAssignments += (Variable(left) -> Variable(right) )
             //println(variableAssignments.keys)
             Assignment(Variable(left), simplify(expr))
+          case _ => Assignment(Variable(left), expr)
         }
         case _ => Assignment(Variable(left), simplify(expr))
       }
@@ -198,7 +196,15 @@ object Simplifier {
     //      --- Arithmetic expressions ---
 
     // Here a duplication for floats was required, cannot create object of generic type
-    case BinExpr(op, oLeft, oRight) => (simplify(oLeft),simplify(oRight)) match {
+    case BinExpr(op, oLeft, oRight) => println("koza1"); (simplify(oLeft),simplify(oRight)) match {
+
+      // Reduction of equal arguments
+      case (left,right) if left==right => println("koza"); op match {
+        case "/" | "%" => IntNum(1)
+        case "-" => IntNum(0)
+        case _ => simplify(BinExpr(op, left, right))
+      }
+
       case (left,right@IntNum(num)) => Integer2int(num) match {
           case 0 => op match {
             case "-" | "+" => left
@@ -230,7 +236,8 @@ object Simplifier {
       // Other way around
       case (left@IntNum(num), right) => Integer2int(num) match  {
           case 0 => op match {
-            case "-" | "+" => right
+            case "+" => right
+            case "-" => simplify(Unary("-", right))
             case "*" => DeadInstr()
             case "**" => IntNum(0)
             case _ => BinExpr(op, left, right)
@@ -244,7 +251,8 @@ object Simplifier {
       }
       case (left@FloatNum(num), right) => num match {
           case 0 => op match {
-            case "-" | "+" => right
+            case "+" => right
+            case "-" => simplify(Unary("-", right))
             case "*" => DeadInstr()
             case "**" => FloatNum(0)
             case _ => BinExpr(op, left, right)
@@ -284,7 +292,7 @@ object Simplifier {
         if a == 2 && b == 2 && c == 2 && ((x1 == y2 && x2 == y3) || (x1 == x2 && y2 == y3)) && op == "+" =>
         simplify(BinExpr("**", BinExpr("+", x1, y3), IntNum(2)))
 
-      // x^^y*x^z == x^^(y+z)
+      // x^^y*x^z == x^^(y+z) and so on
       case (BinExpr("**", x1, y1), BinExpr("**", x2, y2)) if x1 == x2 && op == "*" =>
         simplify(BinExpr("**", x1, BinExpr("+", y1, y2)))
 
@@ -295,23 +303,22 @@ object Simplifier {
       case (expr, BinExpr("/", numerator, denominator)) if op == "*" => simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
       case (BinExpr("/", numerator, denominator), expr) if op == "*" => simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
 
+      //  Reduction of type -x+x = x-x
+      case (Unary("-", exprU), right) if op == "+" => simplify(BinExpr("-", right, exprU))
+      case (left, Unary("-", exprU)) if op == "+" => simplify(BinExpr("-", left, exprU))
+
 
       // Distributive property of multiplication:
 
-      // Commutative properties of addition and subtraction:
 
-      case (left,right) if left==right => op match {
-        case "/" | "%" => IntNum(1)
-        case "-" => IntNum(0)
-        case _ => simplify(BinExpr(op, left, right))
-      }
+      // Commutative properties of addition and subtraction:
 
       case (left, right) => op match {
         case "+" => (left, right) match {
-          case (left@BinExpr("-", exprL, exprR), right) =>
+          case (left@BinExpr("-", exprL, exprR), `right`) =>
             if (exprR == right) simplify(exprL)
             else BinExpr("+", simplify(left), simplify(right))
-          case (left, right@BinExpr("-", exprL, exprR)) =>
+          case (`left`, right@BinExpr("-", exprL, exprR)) =>
             if (exprR == left) simplify(exprL)
             else BinExpr("+", simplify(left), simplify(right))
           case (exprL, exprR) =>
@@ -322,11 +329,11 @@ object Simplifier {
 
         }
         case "-" => (left, right) match {
-          case (left@BinExpr("+", exprL, exprR), right) =>
+          case (left@BinExpr("+", exprL, exprR), `right`) =>
             if (exprL == right) simplify(exprR)
             else if (exprR == right) simplify(exprL)
             else BinExpr("-", simplify(left), simplify(right))
-          case (left, right@BinExpr("+", exprL, exprR)) =>
+          case (`left`, right@BinExpr("+", exprL, exprR)) =>
             if (exprL == left) simplify(Unary("-", exprR))
             else if (exprR == left) simplify(Unary("-", exprL))
             else BinExpr("-", simplify(left), simplify(right))
@@ -381,28 +388,28 @@ object Simplifier {
       //   TODO: Moze da sie to zrobic piekniej - 8 kombinacji
 
       case (Assignment(fLeft, fRight):: Assignment(left, right) :: Nil) => fLeft match {
-        case left => NodeList(simplify(Assignment(fLeft, right)) :: Nil)
+        case `left` => NodeList(simplify(Assignment(fLeft, right)) :: Nil)
       }
       case (Assignment(fLeft, fRight):: Assignment(left, right) :: rest) => fLeft match {
-        case left => NodeList((Assignment(fLeft, right) :: rest) map simplify)
+        case `left` => NodeList((Assignment(fLeft, right) :: rest) map simplify)
       }
       case (Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: Nil) => fLeft match {
-        case left => NodeList((middle :: Assignment(fLeft, right) :: Nil) map simplify)
+        case `left` => NodeList((middle :: Assignment(fLeft, right) :: Nil) map simplify)
       }
       case (Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: rest) => fLeft match {
-        case left => NodeList((middle :: Assignment(fLeft, right) :: rest) map simplify)
+        case `left` => NodeList((middle :: Assignment(fLeft, right) :: rest) map simplify)
       }
       case (head :: Assignment(fLeft, fRight) :: Assignment(left, right) :: Nil) => fLeft match {
-        case left => NodeList((head :: Assignment(fLeft, right) :: Nil) map simplify)
+        case `left` => NodeList((head :: Assignment(fLeft, right) :: Nil) map simplify)
       }
       case (head :: Assignment(fLeft, fRight):: Assignment(left, right) :: rest) => fLeft match {
-        case left => NodeList((head :: Assignment(fLeft, right) :: rest) map simplify)
+        case `left` => NodeList((head :: Assignment(fLeft, right) :: rest) map simplify)
       }
       case (head :: Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: Nil) => fLeft match {
-        case left => NodeList((head :: middle :: Assignment(fLeft, right) :: Nil) map simplify)
+        case `left` => NodeList((head :: middle :: Assignment(fLeft, right) :: Nil) map simplify)
       }
       case (head :: Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: rest) => fLeft match {
-        case left => NodeList((head :: middle :: Assignment(fLeft, right) :: rest) map simplify)
+        case `left` => NodeList((head :: middle :: Assignment(fLeft, right) :: rest) map simplify)
       }
 
 
@@ -415,7 +422,6 @@ object Simplifier {
     case Tuple(list) => Tuple(list map simplify)
 
     // Nothing can be simplified:
-//    case node => StringConst(node.getClass.toString)
     case node => node;
   }
 }
