@@ -1,59 +1,11 @@
-x + 0
-0 + x
-x - x
--x + x
+x = y if 2==2 else z
 
-a = 2+2.0
-
-x=a; x=b;
-
-b=e
-a=b
-c=a
-
-res = 0+0
-res = res
-
-(x==x) and (2 > 3)
-
-boolean = 5 > 3
-
-kr = (a,b,2+2)
-
-krConcatenated = (a,b,c) + (d,e,f)
-
-concatenatedList = [a,b,c]+[x,y]
-
-slownik = { "a": 3, "b": 2, "a": 3 }
-
-while (2 != 2):
-{
-    4
-}
-
-if (2 > 3):
-{
-    4
-}
 
 def some(m, n):
 {
-    res = 0+0
-    res = res
-
-    if (273.23 > 324.34):
-    {
-        true
-    }
-
-    while (False):
-    {
-        4
-    }
+    4
 }
 
 some(1+1,2+2)
-
-print(14+4.0)
 
 

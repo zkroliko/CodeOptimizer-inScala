@@ -81,11 +81,15 @@ object Simplifier {
         case _ => WhileInstr(simplifiedCond, simplify(body))
       }
 
-    // Removing assignments to itself
+    // Removing assignments to itself and shortening x = y if %s else z
     // also checking for a=b; c=b using map - not in specification
     case Assignment(Variable(left), expr) => expr match {
       case Variable(y) if left == y => DeadInstr()
       case _ => expr match {
+        // x = y if %s else z
+        case IfElseExpr(cond,iLeft,iRight) => {
+          Assignment(Variable(left),simplify(IfElseInstr(cond,iLeft,iRight)))
+        }
         case Variable(right) => variableAssignments get Variable(right) match {
           case Some(Variable(original)) =>
             variableAssignments += (Variable(left) -> Variable(right) )
