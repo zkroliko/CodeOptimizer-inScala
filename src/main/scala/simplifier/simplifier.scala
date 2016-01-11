@@ -263,13 +263,38 @@ object Simplifier {
 
       // Short multiplication formulas
 
-      case (first@BinExpr("**", BinExpr(op1, l1, r1), IntNum(x)), second@BinExpr("**", BinExpr(op2, l2, r2), IntNum(y)))
-        if l1 == l2 && r1 == r2 && x == 2 && y == 2 => (op, op1, op2) match {
-        case ("-","+","-") => BinExpr("*", BinExpr("*", l1, IntNum(4)), r1) // (x+y)^2 - (x-y)^2 = 4xy
-        case ("-","-","+") => Unary("-", BinExpr("*", BinExpr("*", l1, IntNum(4)), r1)) // (x-y)^2 - (x+y)^2 = -4xy
+      case (first@BinExpr("**", BinExpr(op1, x1, y1), IntNum(x)), second@BinExpr("**", BinExpr(op2, x2, y2), IntNum(y)))
+        if x1 == x2 && y1 == y2 && x == 2 && y == 2 => (op, op1, op2) match {
+        case ("-","+","-") => BinExpr("*", BinExpr("*", x1, IntNum(4)), y1) // (x+y)^2 - (x-y)^2 = 4xy
+        case ("-","-","+") => Unary("-", BinExpr("*", BinExpr("*", x1, IntNum(4)), y1)) // (x-y)^2 - (x+y)^2 = -4xy
         case _ => BinExpr("-", simplify(first), simplify(second))
       }
+      // TODO: Test
+      // (x+y)^2-x^2-2*xy lub (x+y)^2-x^2-2*yx
+      case (BinExpr("-", BinExpr("**", BinExpr("+", x1, y1), IntNum(a)), BinExpr("**", x2, IntNum(b))), BinExpr("*", BinExpr("*", x3, IntNum(c)), y3))
+        if a == 2 && b == 2 && c == 2 && x1 == x2 && ((x1 == x3 && y1 == y3) || (x1 == y3 && y1 == x3)) && op == "-" =>
+        simplify(BinExpr("**", y1, IntNum(2)))
+      // TODO: Test
+      // (x+y)^2-y^2-2yx lub (x+y)^2-y^2-2xy
+      case (BinExpr("-", BinExpr("**", BinExpr("+", x1, y1), IntNum(a)), BinExpr("**", x2, IntNum(b))), BinExpr("*", BinExpr("*", x3, IntNum(c)), y3))
+        if a == 2 && b == 2 && c == 2 && y1 == x2 && ((x1 == x3 && y1 == y3) || (x1 == y3 && y1 == x3)) & op == "-" =>
+        simplify(BinExpr("**", x1, IntNum(2)))
+      // TODO: Test
+      //  x^2+2xy+y^2 lub x^2+2yx+y^2
+      case (BinExpr("+", BinExpr("**", x1, IntNum(a)), BinExpr("*", BinExpr("*", x2, IntNum(b)), y2)), BinExpr("**", y3, IntNum(c)))
+        if a == 2 && b == 2 && c == 2 && ((x1 == y2 && x2 == y3) || (x1 == x2 && y2 == y3)) && op=="+" =>
+        simplify(BinExpr("**", BinExpr("+", x1, y3), IntNum(2)))
 
+      // x^^y*x^z == x^^(y+z)
+      case (BinExpr("**", x1, y1), BinExpr("**", x2, y2)) if x1 == x2 && op =="*" =>
+        simplify(BinExpr("**", x1, BinExpr("+", y1, y2)))
+
+      case (BinExpr("**", x1, y1), BinExpr("**", x2, y2)) if x1 == x2 && op =="/"  =>
+        simplify(BinExpr("**", x1, BinExpr("-", y1, y2)))
+
+      // Nominator denominator simplifications
+      case (expr, BinExpr("/", numerator, denominator)) if op=="*" => simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
+      case (BinExpr("/", numerator, denominator), expr) if op=="*" => simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
 
       case (left, right) =>
         // Checking if simplification goes further
