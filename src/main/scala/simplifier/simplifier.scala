@@ -165,6 +165,7 @@ object Simplifier {
           else BinExpr("or", exprLeft, exprRight)
       }
 
+
     //        --- Unary expressions ---
 
     case Unary("not", expr) => expr match {
@@ -190,86 +191,98 @@ object Simplifier {
       case expr2             => Unary("-", simplify(expr2))
     }
 
+    //Balancing trees ((((l1*r1)+(l2*r2))+(l3*r3))+(l4*r4)) => (((l1*r1)+(l2*r2))+((l3*r3)+(l4*r4)))
+    case (BinExpr("+", BinExpr("+", BinExpr("+", BinExpr("*", l1, r1), BinExpr("*", l2, r2)), BinExpr("*", l3, r3)), BinExpr("*", l4, r4)))
+    => simplify(BinExpr("+", BinExpr("+", BinExpr("*", l1, r1), BinExpr("*", l2, r2)), BinExpr("+", BinExpr("*", l3, r3), BinExpr("*", l4, r4))))
+
     //      --- Arithmetic expressions ---
 
     // Here a duplication for floats was required, cannot create object of generic type
-    case BinExpr(op, left, right) => simplify(right) match {
-      case IntNum(num) => Integer2int(num) match {
-        case 0 => op match {
-          case "-" | "+" => left
-          case "*" => DeadInstr()
-          case "/" | "%" => throw new ArithmeticException(op + " by 0")
-          case "**" => IntNum(1)
-          case _ => BinExpr(op, left, IntNum(num))
-        }
-        case 1 => op match {
-          case "*" | "/" | "%" | "**" => left
-          case _ => BinExpr(op, left, IntNum(num))
-        }
-        case _ => BinExpr(op, left, IntNum(num))
+    case BinExpr(op, oLeft, oRight) => (simplify(oLeft),simplify(oRight)) match {
+      case (left,right@IntNum(num)) => Integer2int(num) match {
+          case 0 => op match {
+            case "-" | "+" => left
+            case "*" => DeadInstr()
+            case "/" | "%" => throw new ArithmeticException(op + " by 0")
+            case "**" => IntNum(1)
+            case _ => BinExpr(op, left, right)
+          }
+          case 1 => op match {
+            case "*" | "/" | "%" | "**" => left
+            case _ => BinExpr(op, left, right)
+          }
+          case _ => BinExpr(op, left, right )
       }
-
-      case FloatNum(num) => num match {
-        case 0 => op match {
-          case "-" | "+" => left
-          case "*" => DeadInstr()
-          case "/" | "%" => throw new ArithmeticException(op + " by 0")
-          case "**" => FloatNum(1)
-          case _ => BinExpr(op, left, FloatNum(num))
-        }
-        case 1 => op match {
-          case "*" | "/" | "%" | "**" => left
-          case _ => BinExpr(op, left, FloatNum(num))
-        }
-        case _ => BinExpr(op, left, FloatNum(num))
+      case (left,right@FloatNum(num)) => num match {
+          case 0 => op match {
+            case "-" | "+" => left
+            case "*" => DeadInstr()
+            case "/" | "%" => throw new ArithmeticException(op + " by 0")
+            case "**" => FloatNum(1)
+            case _ => BinExpr(op, left, right)
+          }
+          case 1 => op match {
+            case "*" | "/" | "%" | "**" => left
+            case _ => BinExpr(op, left, right)
+          }
+          case _ => BinExpr(op, left, right )
       }
-
-      // Left side is equal to right side
-      case `left` => op match {
-        case "/" | "%" => IntNum(1)
-        case "-" => IntNum(0)
-        case _ => BinExpr(op, simplify(left), simplify(right))
-      }
-
-      case n => simplify(n)
-    }
-
-    // Other way around
-    case BinExpr(op, left, right) => simplify(left) match {
-      case IntNum(num) => Integer2int(num) match {
+      // Other way around
+      case (left@IntNum(num), right) => Integer2int(num) match  {
           case 0 => op match {
             case "-" | "+" => right
             case "*" => DeadInstr()
             case "**" => IntNum(0)
-            case _ => BinExpr(op, right, IntNum(num))
+            case _ => BinExpr(op, left, right)
           }
           case 1 => op match {
             case "*" => right
             case "**" => IntNum(1)
-            case _ => BinExpr(op, right, IntNum(num))
+            case _ => BinExpr(op, left, right)
           }
-          case _ => BinExpr(op, right, IntNum(num))
-        }
-      case n => simplify(n)
-    }
-
-    // Other way around
-    case BinExpr(op, left, right) => simplify(left) match {
-      case FloatNum(num) => num match {
-        case 0 => op match {
-          case "-" | "+" => right
-          case "*" => DeadInstr()
-          case "**" => FloatNum(0)
-          case _ => BinExpr(op, right, FloatNum(num))
-        }
-        case 1 => op match {
-          case "*" => right
-          case "**" => FloatNum(1)
-          case _ => BinExpr(op, right, FloatNum(num))
-        }
-        case _ => BinExpr(op, right, FloatNum(num))
+          case _ => BinExpr(op, left, right )
       }
-      case n => simplify(n)
+      case (left@FloatNum(num), right) => num match {
+          case 0 => op match {
+            case "-" | "+" => right
+            case "*" => DeadInstr()
+            case "**" => FloatNum(0)
+            case _ => BinExpr(op, left, right)
+          }
+          case 1 => op match {
+            case "*" => right
+            case "**" => FloatNum(1)
+            case _ => BinExpr(op, left,  right)
+          }
+          case _ => BinExpr(op, left, right )
+      }
+
+
+      // Distributive property of multiplication:
+
+
+      // Short multiplication formulas
+
+      case (first@BinExpr("**", BinExpr(op1, l1, r1), IntNum(x)), second@BinExpr("**", BinExpr(op2, l2, r2), IntNum(y)))
+        if l1 == l2 && r1 == r2 && x == 2 && y == 2 => (op, op1, op2) match {
+        case ("-","+","-") => BinExpr("*", BinExpr("*", l1, IntNum(4)), r1) // (x+y)^2 - (x-y)^2 = 4xy
+        case ("-","-","+") => Unary("-", BinExpr("*", BinExpr("*", l1, IntNum(4)), r1)) // (x-y)^2 - (x+y)^2 = -4xy
+        case _ => BinExpr("-", simplify(first), simplify(second))
+      }
+
+
+      case (left, right) =>
+        // Checking if simplification goes further
+        val sLeft = simplify(left)
+        val sRight = simplify(right)
+        if (sLeft != left || sRight != right) simplify(BinExpr(op, sLeft, sRight)) else BinExpr(op, sLeft, sRight)
+
+      // Left side is equal to right side
+      case (left,right) if left==right => op match {
+        case "/" | "%" => IntNum(1)
+        case "-" => IntNum(0)
+        case _ => simplify(BinExpr(op, left, right))
+      }
     }
 
     case Variable(name) => name match {
