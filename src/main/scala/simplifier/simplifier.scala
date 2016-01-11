@@ -308,46 +308,81 @@ object Simplifier {
       case (left, Unary("-", exprU)) if op == "+" => simplify(BinExpr("-", left, exprU))
 
 
-      // Distributive property of multiplication:
 
 
-      // Commutative properties of addition and subtraction:
 
-      case (left, right) => op match {
-        case "+" => (left, right) match {
-          case (left@BinExpr("-", exprL, exprR), `right`) =>
-            if (exprR == right) simplify(exprL)
+
+      case (extLeft, extRight) => op match {
+
+        case "+" => (extLeft, extRight) match {
+
+
+          // Distributive property of multiplication:
+
+
+          // Distributive properties of division :
+
+          case (left@BinExpr("/", l1, r1), right@BinExpr("/", l2, r2)) =>
+
+            if (r1 == r2) BinExpr("/", BinExpr("+", l1, l2), r1) // (x/y)+(z/y) = (x+z)/y
+            else {
+              val s1 = simplify(left)
+              val s2 = simplify(right)
+              if (s1 != left || s2 != right) simplify(BinExpr("+", s1, s2)) else BinExpr("+", s1, s2)
+            }
+
+          // Commutative properties of addition and subtraction:
+
+          case (left@BinExpr("-", inLeft, inRight), right) =>
+            if (inRight == right) simplify(inLeft)   // (x-y)+y
             else BinExpr("+", simplify(left), simplify(right))
-          case (`left`, right@BinExpr("-", exprL, exprR)) =>
-            if (exprR == left) simplify(exprL)
+          case (left, right@BinExpr("-", inLeft, inRight)) =>
+            if (inRight == left) simplify(inLeft)   // (x-y)+y
             else BinExpr("+", simplify(left), simplify(right))
-          case (exprL, exprR) =>
+          case (left, right) =>
             // Checking if simplification goes further
-            val sL = simplify(exprL)
-            val sR = simplify(exprR)
-            if (sL != exprL || sR != exprR) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
-
+            val sL = simplify(left)
+            val sR = simplify(right)
+            if (sL != left || sR != right) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
         }
-        case "-" => (left, right) match {
-          case (left@BinExpr("+", exprL, exprR), `right`) =>
-            if (exprL == right) simplify(exprR)
-            else if (exprR == right) simplify(exprL)
+        case "-" => (extLeft, extRight) match {
+
+
+          // Distributive property of multiplication:
+
+
+          // Distributive properties of division :
+
+          case (e1@BinExpr("/", l1, r1), e2@BinExpr("/", l2, r2)) =>
+            if (r1 == r2) BinExpr("/", BinExpr("-", l1, l2), r1) // (x/y)-(z/y) = (x-z)/y
+            else {
+              val s1 = simplify(e1)
+              val s2 = simplify(e2)
+              if (s1 != e1 || s2 != e2) simplify(BinExpr("-", s1, s2)) else BinExpr("-", s1, s2)
+            }
+
+
+          // Commutative properties of addition and subtraction:
+
+          case (left@BinExpr("+", inLeft, inRight), right) =>
+            if (inLeft == right) simplify(inRight)            // (x+y)-x
+            else if (inRight == right) simplify(inLeft)       // (x+y)-y
             else BinExpr("-", simplify(left), simplify(right))
-          case (`left`, right@BinExpr("+", exprL, exprR)) =>
-            if (exprL == left) simplify(Unary("-", exprR))
-            else if (exprR == left) simplify(Unary("-", exprL))
+          case (left, right@BinExpr("+", inLeft, inRight)) =>
+            if (inLeft == left) simplify(Unary("-", inRight)) // x-(x+y)
+            else if (inRight == left) simplify(Unary("-", inLeft)) // y-(x+y)
             else BinExpr("-", simplify(left), simplify(right))
-          case (exprL, exprR) =>
+          case (left, right) =>
             // Checking if simplification goes further
-            val sL = simplify(exprL)
-            val sR = simplify(exprR)
-            if (sL != exprL || sR != exprR) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
+            val sL = simplify(left)
+            val sR = simplify(right)
+            if (sL != left || sR != right) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
         }
         case _ =>
           // Checking if simplification goes further
-          val sLeft = simplify(left)
-          val sRight = simplify(right)
-          if (sLeft != left || sRight != right) simplify(BinExpr(op, sLeft, sRight)) else BinExpr(op, sLeft, sRight)
+          val sLeft = simplify(extLeft)
+          val sRight = simplify(extRight)
+          if (sLeft != extLeft || sRight != extRight) simplify(BinExpr(op, sLeft, sRight)) else BinExpr(op, sLeft, sRight)
       }
     }
 
