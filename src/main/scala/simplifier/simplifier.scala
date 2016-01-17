@@ -311,6 +311,22 @@ object Simplifier {
 
       case (extLeft, extRight) => op match {
 
+
+        // Commutative property of multiplication
+
+        case "*" => (extLeft, extRight) match {
+          case (var1@Variable(name), var2@Variable(name2)) =>
+            if (name.compareTo(name2) < 0)
+              BinExpr("*",Variable(name),Variable(name2))
+            else
+              BinExpr("*",Variable(name2),Variable(name))
+          case (left, right) =>
+            // Checking if simplification goes further
+            val sL = simplify(left)
+            val sR = simplify(right)
+            if (sL != left || sR != right) simplify(BinExpr("*", sL, sR)) else BinExpr("*", sL, sR)
+        }
+
         case "+" => (extLeft, extRight) match {
 
           // Commutative property of addition
@@ -402,6 +418,7 @@ object Simplifier {
             val sR = simplify(right)
             if (sL != left || sR != right) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
         }
+
         // Power laws
         case "**" => (extLeft, extRight) match {
           case (BinExpr("**", inLeft, inRight), right) =>

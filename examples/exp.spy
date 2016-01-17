@@ -1,19 +1,6 @@
-x+0
--x+x
-x*1
-1*x
-0*x
-x and x
-x or True
-x or False
-x and False
-x and True
-x==x
-x>=x
-x<=x
-x!=x
-x>x
-x<x
+x**2+2*x*y+y**2
+
+z*y*x
 
 def some(m, n):
 {
