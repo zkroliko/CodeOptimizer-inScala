@@ -41,6 +41,24 @@ object Simplifier {
     case ">=" => if (ordering.gteq(x,y))   TrueConst() else FalseConst()
   }
 
+  def simplifyDivision (left: Node, right: Node): Node = (left, right) match {
+    case (expr, BinExpr("/", x2, y2)) =>
+      val simExpr = simplify(expr)
+      val simX2 = simplify(x2)
+      val simY2 = simplify(y2)
+      simExpr match {
+        case BinExpr("/", x1, y1) => // (x/y)/(w/z) = (x*z)/(y*w)
+          simplify(BinExpr("/", BinExpr("*", x1, simY2), BinExpr("*", y1, simX2)))
+        case simple =>  // x/(y/z) = x*z/y
+          simplify(BinExpr("/", BinExpr("*", simple, simY2), simX2))
+      }
+    case (left, right) =>
+      // Checking if simplification goes further
+      val sL = simplify(left)
+      val sR = simplify(right)
+      if (sL != left || sR != right) simplify(BinExpr("/", sL, sR)) else BinExpr("/", sL, sR)
+  }
+
   def simplify(node: Node): Node = node match {
 
     // Concatenating lists and tuples
@@ -144,6 +162,12 @@ object Simplifier {
         case (expr, TrueConst()) => expr
         case (TrueConst(), expr) => expr
         case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
+        // Commutative property of and
+        case (var1@Variable(name), var2@Variable(name2)) => // y+x = x+y
+          if (name.compareTo(name2) < 0)
+            BinExpr("and",Variable(name),Variable(name2))
+          else
+            BinExpr("and",Variable(name2),Variable(name))
         case (exprLeft, exprRight) =>
           if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
             simplify(BinExpr("and", exprLeft, exprRight))
@@ -157,6 +181,12 @@ object Simplifier {
         case (expr, FalseConst()) => expr
         case (FalseConst(), expr) => expr
         case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
+        // Commutative property of or
+        case (var1@Variable(name), var2@Variable(name2)) => // y+x = x+y
+          if (name.compareTo(name2) < 0)
+            BinExpr("or",Variable(name),Variable(name2))
+          else
+            BinExpr("or",Variable(name2),Variable(name))
         case (exprLeft, exprRight) =>
           if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
             simplify(BinExpr("or", exprLeft, exprRight))
@@ -246,11 +276,13 @@ object Simplifier {
             case "-" => simplify(Unary("-", right))
             case "*" => IntNum(0)
             case "**" => IntNum(0)
+            case "/" => simplifyDivision(left,right)
             case _ => BinExpr(op, left, right)
           }
           case 1 => op match {
             case "*" => right
             case "**" => IntNum(1)
+            case "/" => simplifyDivision(left,right)
             case _ => BinExpr(op, left, right)
           }
           case _ => BinExpr(op, left, right )
@@ -261,11 +293,13 @@ object Simplifier {
             case "-" => simplify(Unary("-", right))
             case "*" => FloatNum(0)
             case "**" => FloatNum(0)
+            case "/" => simplifyDivision(left,right)
             case _ => BinExpr(op, left, right)
           }
           case 1 => op match {
             case "*" => right
             case "**" => FloatNum(1)
+            case "/" => simplifyDivision(left,right)
             case _ => BinExpr(op, left,  right)
           }
           case _ => BinExpr(op, left, right )
@@ -303,14 +337,9 @@ object Simplifier {
       case (BinExpr("**", x1, y1), BinExpr("**", x2, y2)) if x1 == x2 && op == "/" =>
         simplify(BinExpr("**", x1, BinExpr("-", y1, y2)))
 
-      // Nominator denominator simplifications
-      case (expr, BinExpr("/", numerator, denominator)) if op == "*" => simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
-      case (BinExpr("/", numerator, denominator), expr) if op == "*" => simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
-
       //  Reduction of type -x+x = x-x
       case (Unary("-", exprU), right) if op == "+" => simplify(BinExpr("-", right, exprU))
       case (left, Unary("-", exprU)) if op == "+" => simplify(BinExpr("-", left, exprU))
-
 
       case (extLeft, extRight) => op match {
 
@@ -322,18 +351,37 @@ object Simplifier {
               BinExpr("*",Variable(name),Variable(name2))
             else
               BinExpr("*",Variable(name2),Variable(name))
+          case (left@Variable(name), right@BinExpr("+",Variable(name1),Variable(name2))) => // y*x = x*y
+            if (name.compareTo(name1+name2) < 0)
+              BinExpr("*",left,right)
+            else
+              BinExpr("*",right,left)
+          case (left@BinExpr("+",Variable(name1),Variable(name2)), right@BinExpr("+",Variable(name3),Variable(name4))) => // y*x = x*y
+            if ((name1+name2).compareTo(name3+name4) < 0)
+              BinExpr("*",left,right)
+            else
+              BinExpr("*",right,left)
+          // Nominator denominator simplifications
+          case (expr, BinExpr("/", numerator, denominator)) => // x*(y/z) = (x * y) /  z
+            simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
+          case (BinExpr("/", numerator, denominator), expr) => // (y/z)*x = (x * y) /  z
+            simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
           case (left, right) =>
             // Checking if simplification goes further
             val sL = simplify(left)
             val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr("*", sL, sR)) else BinExpr("*", sL, sR)
+            if (sL != left || sR != right) simplify(BinExpr(op, sL, sR)) else BinExpr(op, sL, sR)
         }
+
+        case "/" => simplifyDivision(extLeft,extRight)
 
         case "+" => (extLeft, extRight) match {
 
           // Commutative property of addition
 
-          case (var1@Variable(name), var2@Variable(name2)) =>
+          case (variable@Variable(name), expr@BinExpr("*",inLeft1,inRight1)) => // x+y*z = y*z+x is better
+            BinExpr(op,expr,variable);
+          case (var1@Variable(name), var2@Variable(name2)) => // y+x = x+y
             if (name.compareTo(name2) < 0)
               BinExpr("+",Variable(name),Variable(name2))
             else
@@ -342,10 +390,10 @@ object Simplifier {
           // Distributive property of multiplication:
 
           case (left@BinExpr("*", l1, r1), right@BinExpr("*", l2, r2)) =>
-            if (l1 == l2) BinExpr("*", BinExpr("-", r1, r2), l1) // (a*b)+(a*c)
-            else if (r1 == r2) BinExpr("*", BinExpr("-", l1, l2), r1) // (a*b)+(c*b)
-            else if (l1 == r2) BinExpr("*", BinExpr("-", r1, l2), l1) // (a*b)+(c*a)
-            else BinExpr("*", BinExpr("-", l1, r2), r1) // (a*b)+(b*c)
+            if (l1 == l2) BinExpr("*", l1,BinExpr("+", r1, r2)) // (a*b)+(a*c)
+            else if (r1 == r2) BinExpr("*", r1, BinExpr("+", l1, l2)) // (a*b)+(c*b)
+            else if (l1 == r2) BinExpr("*", l1, BinExpr("+", r1, l2)) // (a*b)+(c*a)
+            else BinExpr("*", r1, BinExpr("+", l1, r2)) // (a*b)+(b*c)
 
 
           case (BinExpr("*", inLeft, inRight), right) if right == inLeft => // a*b+a = a(b+1)
@@ -361,7 +409,7 @@ object Simplifier {
             else {
               val s1 = simplify(left)
               val s2 = simplify(right)
-              if (s1 != left || s2 != right) simplify(BinExpr("+", s1, s2)) else BinExpr("+", s1, s2)
+              if (s1 != left || s2 != right) simplify(BinExpr(op, s1, s2)) else BinExpr(op, s1, s2)
             }
 
           // Associative properties of addition and subtraction:
@@ -376,7 +424,7 @@ object Simplifier {
             // Checking if simplification goes further
             val sL = simplify(left)
             val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr("+", sL, sR)) else BinExpr("+", sL, sR)
+            if (sL != left || sR != right) simplify(BinExpr(op, sL, sR)) else BinExpr(op, sL, sR)
         }
         case "-" => (extLeft, extRight) match {
 
@@ -401,7 +449,7 @@ object Simplifier {
             else {
               val s1 = simplify(e1)
               val s2 = simplify(e2)
-              if (s1 != e1 || s2 != e2) simplify(BinExpr("-", s1, s2)) else BinExpr("-", s1, s2)
+              if (s1 != e1 || s2 != e2) simplify(BinExpr(op, s1, s2)) else BinExpr(op, s1, s2)
             }
 
           // Associative properties of addition and subtraction:
@@ -418,7 +466,7 @@ object Simplifier {
             // Checking if simplification goes further
             val sL = simplify(left)
             val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr("-", sL, sR)) else BinExpr("-", sL, sR)
+            if (sL != left || sR != right) simplify(BinExpr(op, sL, sR)) else BinExpr(op, sL, sR)
         }
 
         // Power laws
