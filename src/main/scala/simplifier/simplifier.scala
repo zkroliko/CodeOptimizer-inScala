@@ -217,7 +217,10 @@ object Simplifier {
             case "*" | "/" | "%" | "**" => left
             case _ => BinExpr(op, left, right)
           }
-          case _ => BinExpr(op, left, right )
+          case _ => op match {
+            case "*" => BinExpr(op,right,left)  // x*2=2*x The proper way to write this
+            case _ => BinExpr(op, left, right )
+          }
       }
       case (left,right@FloatNum(num)) => num match {
           case 0 => op match {
@@ -231,7 +234,10 @@ object Simplifier {
             case "*" | "/" | "%" | "**" => left
             case _ => BinExpr(op, left, right)
           }
-          case _ => BinExpr(op, left, right )
+          case _ => op match {
+            case "*" => BinExpr(op,right,left)  // x*2=2*x The proper way to write this
+            case _ => BinExpr(op, left, right )
+          }
       }
       // Other way around
       case (left@IntNum(num), right) => Integer2int(num) match  {
@@ -274,22 +280,19 @@ object Simplifier {
         case _ => BinExpr("-", simplify(first), simplify(second))
       }
 
-      // TODO: Test
-      // (x+y)^2-x^2-2*xy lub (x+y)^2-x^2-2*yx
-      case (BinExpr("-", BinExpr("**", BinExpr("+", x1, y1), IntNum(a)), BinExpr("**", x2, IntNum(b))), BinExpr("*", BinExpr("*", x3, IntNum(c)), y3))
-        if a == 2 && b == 2 && c == 2 && x1 == x2 && ((x1 == x3 && y1 == y3) || (x1 == y3 && y1 == x3)) && op == "-" =>
+      // (x+y)^2-x^2-2*xy
+      case (BinExpr("-", BinExpr("**", BinExpr("+", x1, y1), IntNum(a)), BinExpr("**", x2, IntNum(b))), BinExpr("*", BinExpr("*", IntNum(c), x3), y3))
+        if a == 2 && b == 2 && c == 2 && x1 == x2 && x1 == x3 && y1 == y3 && op == "-" =>
         simplify(BinExpr("**", y1, IntNum(2)))
 
-      // TODO: Test
-      // (x+y)^2-y^2-2yx lub (x+y)^2-y^2-2xy
-      case (BinExpr("-", BinExpr("**", BinExpr("+", x1, y1), IntNum(a)), BinExpr("**", x2, IntNum(b))), BinExpr("*", BinExpr("*", x3, IntNum(c)), y3))
+      // (x+y)^2-y^2-2yx lub (x+y)^2-y^2-2xy // TODO: Zrobic tak zeby dzialalo na obydwoch
+      case (BinExpr("-", BinExpr("**", BinExpr("+", x1, y1), IntNum(a)), BinExpr("**", x2, IntNum(b))), BinExpr("*", BinExpr("*", IntNum(c), x3), y3))
         if a == 2 && b == 2 && c == 2 && y1 == x2 && ((x1 == x3 && y1 == y3) || (x1 == y3 && y1 == x3)) & op == "-" =>
         simplify(BinExpr("**", x1, IntNum(2)))
 
-      // TODO: Test
-      //  x^2+2xy+y^2 lub x^2+2yx+y^2
-      case (BinExpr("+", BinExpr("**", x1, IntNum(a)), BinExpr("*", BinExpr("*", x2, IntNum(b)), y2)), BinExpr("**", y3, IntNum(c)))
-        if a == 2 && b == 2 && c == 2 && ((x1 == y2 && x2 == y3) || (x1 == x2 && y2 == y3)) && op == "+" =>
+      //  x^2+2xy+y^2
+      case (BinExpr("+", BinExpr("**", x1, IntNum(a)), BinExpr("*", BinExpr("*",IntNum(b), x2), y2)), BinExpr("**", y3, IntNum(c)))
+        if a == 2 && b == 2 && c == 2 && (x1 == x2 && y2 == y3) && op == "+" =>
         simplify(BinExpr("**", BinExpr("+", x1, y3), IntNum(2)))
 
       // Power laws
@@ -311,11 +314,10 @@ object Simplifier {
 
       case (extLeft, extRight) => op match {
 
-
         // Commutative property of multiplication
 
         case "*" => (extLeft, extRight) match {
-          case (var1@Variable(name), var2@Variable(name2)) =>
+          case (var1@Variable(name), var2@Variable(name2)) => // y*x = x*y
             if (name.compareTo(name2) < 0)
               BinExpr("*",Variable(name),Variable(name2))
             else
