@@ -2,6 +2,7 @@ package simplifier
 
 import math.pow
 import scala.collection.immutable.::
+import Name.NameProvider._
 
 import AST._
 
@@ -335,7 +336,8 @@ object Simplifier {
 
     case Unary("-", expr) => simplifyMinus(expr)
 
-    //Balancing trees ((((l1*r1)+(l2*r2))+(l3*r3))+(l4*r4)) => (((l1*r1)+(l2*r2))+((l3*r3)+(l4*r4)))
+    //Balancing trees
+    // ((((l1*r1)+(l2*r2))+(l3*r3))+(l4*r4)) => (((l1*r1)+(l2*r2))+((l3*r3)+(l4*r4)))
     case (BinExpr("+", BinExpr("+", BinExpr("+", BinExpr("*", l1, r1), BinExpr("*", l2, r2)), BinExpr("*", l3, r3)), BinExpr("*", l4, r4)))
     => simplify(BinExpr("+", BinExpr("+", BinExpr("*", l1, r1), BinExpr("*", l2, r2)), BinExpr("+", BinExpr("*", l3, r3), BinExpr("*", l4, r4))))
 
@@ -390,24 +392,39 @@ object Simplifier {
 
       case (extLeft, extRight) => op match {
 
+        // Some power laws
+        case "**" => (extLeft, extRight) match {
+          case (BinExpr("**", inLeft, inRight), right) =>
+            simplify(BinExpr("**", inLeft, BinExpr("*", inRight, right))) // a**b**c = a**(b*c)
+          case (left, right) => simplifyBinExpWildcard(op,left,right)
+        }
+
         // Commutative property of multiplication
 
+
+
+
         case "*" => (extLeft, extRight) match {
-          case (var1@Variable(name), var2@Variable(name2)) => // y*x = x*y
-            if (name.compareTo(name2) < 0)
-              BinExpr("*",Variable(name),Variable(name2))
+          case (var1:Variable, var2:Variable) => // y*x = x*y
+            if (name(var1).compareTo(name(var2)) < 0)
+              BinExpr("*",var1,var2)
             else
-              BinExpr("*",Variable(name2),Variable(name))
-          case (left@Variable(name), right@BinExpr("+",Variable(name1),Variable(name2))) => // y*x = x*y
-            if (name.compareTo(name1+name2) < 0)
+              BinExpr("*",var2,var1)
+          case (left:Variable, right:BinExpr) => // y*x = x*y
+            if (name(left).compareTo(name(right)) < 0)
               BinExpr("*",left,right)
             else
               BinExpr("*",right,left)
-          case (left@BinExpr("+",Variable(name1),Variable(name2)), right@BinExpr("+",Variable(name3),Variable(name4))) => // y*x = x*y
-            if ((name1+name2).compareTo(name3+name4) < 0)
-              BinExpr("*",left,right)
+          case (left:BinExpr, right:BinExpr) => // (x+y)*(w+z)=(w+z)*(x+y)
+            if (name(left).compareTo(name(right)) < 0)
+               BinExpr("*",left,right)
             else
               BinExpr("*",right,left)
+          case (BinExpr("*", u1, e1:BinExpr),e2:BinExpr) => u1 match { // (2*x)*y = 2*(x*y)
+            case num:IntNum => BinExpr("*", BinExpr("*", e1: BinExpr, e2: BinExpr), num)
+            case num:FloatNum => BinExpr("*", BinExpr("*", e1: BinExpr, e2: BinExpr), num)
+          }
+
           // Nominator denominator simplifications
           case (expr, BinExpr("/", numerator, denominator)) => // x*(y/z) = (x * y) /  z
             simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
@@ -501,13 +518,6 @@ object Simplifier {
             if (inLeft == left) simplify(Unary("-", inRight)) // x-(x+y)
             else if (inRight == left) simplify(Unary("-", inLeft)) // y-(x+y)
             else BinExpr("-", simplify(left), simplify(right))
-          case (left, right) => simplifyBinExpWildcard(op,left,right)
-        }
-
-        // Power laws
-        case "**" => (extLeft, extRight) match {
-          case (BinExpr("**", inLeft, inRight), right) =>
-            simplify(BinExpr("**", inLeft, BinExpr("*", inRight, right))) // a**b**c = a**(b*c)
           case (left, right) => simplifyBinExpWildcard(op,left,right)
         }
 
