@@ -148,6 +148,117 @@ object Simplifier {
     }
   }
 
+  def simplifyNot(expr: Node): Node = {
+    expr match {
+      case BinExpr("==", left, right) => simplify(BinExpr("!=", left, right))
+      case BinExpr("!=", left, right) => simplify(BinExpr("==", left, right))
+      case BinExpr("<=", left, right) => simplify(BinExpr(">",  left, right))
+      case BinExpr(">=", left, right) => simplify(BinExpr("<",  left, right))
+      case BinExpr("<", left, right) => simplify(BinExpr(">=", left, right))
+      case BinExpr(">", left, right) => simplify(BinExpr("<=", left, right))
+
+      case TrueConst() => FalseConst()
+      case FalseConst() => TrueConst()
+
+      case Unary("not", expr2) => simplify(expr2) // double negation
+
+      case expr2 => Unary("not", simplify(expr2))
+    }
+  }
+
+  def simplifyMinus(expr: Node): Node = {
+    expr match {
+      case Unary("-", expr2) => simplify(expr2) // --x
+      case IntNum(x)         => IntNum(-x)
+      case FloatNum(x)       => FloatNum(-x)
+      case expr2             => Unary("-", simplify(expr2))
+    }
+  }
+
+  def simplifyOperationOnEqual(op: String, left: Node, right: Node) = {
+    op match {
+      case "/" | "%" => IntNum(1)
+      case "-" => IntNum(0)
+      case _ => simplify(BinExpr(op, left, right))
+    }
+  }
+
+  def simplifyArithmeticWithConstants(op: String, outLeft: Node, outRight: Node): Node =  {
+    (simplify(outLeft),simplify(outRight)) match {
+      case (left, right@IntNum(num)) => Integer2int(num) match {
+        case 0 => op match {
+          case "-" | "+" => left
+          case "*" => IntNum(0)
+          case "/" | "%" => throw new ArithmeticException(op + " by 0")
+          case "**" => IntNum(1)
+          case _ => BinExpr(op, left, right)
+        }
+        case 1 => op match {
+          case "*" | "/" | "%" | "**" => left
+          case _ => BinExpr(op, left, right)
+        }
+        case _ => op match {
+          case "*" => BinExpr(op, right, left) // x*2=2*x The proper way to write this
+          case _ => BinExpr(op, left, right)
+        }
+      }
+      case (left, right@FloatNum(num)) => num match {
+        case 0 => op match {
+          case "-" | "+" => left
+          case "*" => FloatNum(0)
+          case "/" | "%" => throw new ArithmeticException(op + " by 0")
+          case "**" => FloatNum(1)
+          case _ => BinExpr(op, left, right)
+        }
+        case 1 => op match {
+          case "*" | "/" | "%" | "**" => left
+          case _ => BinExpr(op, left, right)
+        }
+        case _ => op match {
+          case "*" => BinExpr(op, right, left) // x*2=2*x The proper way to write this
+          case _ => BinExpr(op, left, right)
+        }
+      }
+      // Other way around
+      case (left@IntNum(num), right) => Integer2int(num) match {
+        case 0 => op match {
+          case "+" => right
+          case "-" => simplify(Unary("-", right))
+          case "*" => IntNum(0)
+          case "**" => IntNum(0)
+          case "/" => simplifyDivision(left, right)
+          case _ => BinExpr(op, left, right)
+        }
+        case 1 => op match {
+          case "*" => right
+          case "**" => IntNum(1)
+          case "/" => simplifyDivision(left, right)
+          case _ => BinExpr(op, left, right)
+        }
+        case _ => BinExpr(op, left, right)
+      }
+      case (left@FloatNum(num), right) => num match {
+        case 0 => op match {
+          case "+" => right
+          case "-" => simplify(Unary("-", right))
+          case "*" => FloatNum(0)
+          case "**" => FloatNum(0)
+          case "/" => simplifyDivision(left, right)
+          case _ => BinExpr(op, left, right)
+        }
+        case 1 => op match {
+          case "*" => right
+          case "**" => FloatNum(1)
+          case "/" => simplifyDivision(left, right)
+          case _ => BinExpr(op, left, right)
+        }
+        case _ => BinExpr(op, left, right)
+      }
+
+    }
+
+  }
+
   def simplify(node: Node): Node = node match {
 
     // Concatenating lists and tuples
@@ -215,28 +326,9 @@ object Simplifier {
 
     //        --- Unary expressions ---
 
-    case Unary("not", expr) => expr match {
-      case BinExpr("==", left, right) => simplify(BinExpr("!=", left, right))
-      case BinExpr("!=", left, right) => simplify(BinExpr("==", left, right))
-      case BinExpr("<=", left, right) => simplify(BinExpr(">",  left, right))
-      case BinExpr(">=", left, right) => simplify(BinExpr("<",  left, right))
-      case BinExpr("<", left, right) => simplify(BinExpr(">=", left, right))
-      case BinExpr(">", left, right) => simplify(BinExpr("<=", left, right))
+    case Unary("not", expr) => simplifyNot(expr)
 
-      case TrueConst() => FalseConst()
-      case FalseConst() => TrueConst()
-
-      case Unary("not", expr2) => simplify(expr2) // double negation
-
-      case expr2 => Unary("not", simplify(expr2))
-    }
-
-    case Unary("-", expr) => expr match {
-      case Unary("-", expr2) => simplify(expr2) // --x
-      case IntNum(x)         => IntNum(-x)
-      case FloatNum(x)       => FloatNum(-x)
-      case expr2             => Unary("-", simplify(expr2))
-    }
+    case Unary("-", expr) => simplifyMinus(expr)
 
     //Balancing trees ((((l1*r1)+(l2*r2))+(l3*r3))+(l4*r4)) => (((l1*r1)+(l2*r2))+((l3*r3)+(l4*r4)))
     case (BinExpr("+", BinExpr("+", BinExpr("+", BinExpr("*", l1, r1), BinExpr("*", l2, r2)), BinExpr("*", l3, r3)), BinExpr("*", l4, r4)))
@@ -248,81 +340,12 @@ object Simplifier {
     case BinExpr(op, oLeft, oRight) =>  (simplify(oLeft),simplify(oRight)) match {
 
       // Reduction of equal arguments
-      case (left,right) if left==right =>  op match {
-        case "/" | "%" => IntNum(1)
-        case "-" => IntNum(0)
-        case _ => simplify(BinExpr(op, left, right))
-      }
+      case (left,right) if left==right =>  simplifyOperationOnEqual(op,left,right)
 
-      case (left,right@IntNum(num)) => Integer2int(num) match {
-          case 0 => op match {
-            case "-" | "+" => left
-            case "*" => IntNum(0)
-            case "/" | "%" => throw new ArithmeticException(op + " by 0")
-            case "**" => IntNum(1)
-            case _ => BinExpr(op, left, right)
-          }
-          case 1 => op match {
-            case "*" | "/" | "%" | "**" => left
-            case _ => BinExpr(op, left, right)
-          }
-          case _ => op match {
-            case "*" => BinExpr(op,right,left)  // x*2=2*x The proper way to write this
-            case _ => BinExpr(op, left, right )
-          }
-      }
-      case (left,right@FloatNum(num)) => num match {
-          case 0 => op match {
-            case "-" | "+" => left
-            case "*" => FloatNum(0)
-            case "/" | "%" => throw new ArithmeticException(op + " by 0")
-            case "**" => FloatNum(1)
-            case _ => BinExpr(op, left, right)
-          }
-          case 1 => op match {
-            case "*" | "/" | "%" | "**" => left
-            case _ => BinExpr(op, left, right)
-          }
-          case _ => op match {
-            case "*" => BinExpr(op,right,left)  // x*2=2*x The proper way to write this
-            case _ => BinExpr(op, left, right )
-          }
-      }
-      // Other way around
-      case (left@IntNum(num), right) => Integer2int(num) match  {
-          case 0 => op match {
-            case "+" => right
-            case "-" => simplify(Unary("-", right))
-            case "*" => IntNum(0)
-            case "**" => IntNum(0)
-            case "/" => simplifyDivision(left,right)
-            case _ => BinExpr(op, left, right)
-          }
-          case 1 => op match {
-            case "*" => right
-            case "**" => IntNum(1)
-            case "/" => simplifyDivision(left,right)
-            case _ => BinExpr(op, left, right)
-          }
-          case _ => BinExpr(op, left, right )
-      }
-      case (left@FloatNum(num), right) => num match {
-          case 0 => op match {
-            case "+" => right
-            case "-" => simplify(Unary("-", right))
-            case "*" => FloatNum(0)
-            case "**" => FloatNum(0)
-            case "/" => simplifyDivision(left,right)
-            case _ => BinExpr(op, left, right)
-          }
-          case 1 => op match {
-            case "*" => right
-            case "**" => FloatNum(1)
-            case "/" => simplifyDivision(left,right)
-            case _ => BinExpr(op, left,  right)
-          }
-          case _ => BinExpr(op, left, right )
-      }
+      case (left, right@IntNum(num)) => simplifyArithmeticWithConstants(op, left, right)
+      case (left, right@FloatNum(num)) => simplifyArithmeticWithConstants(op, left, right)
+      case (left@IntNum(num), right) => simplifyArithmeticWithConstants(op, left, right)
+      case (left@FloatNum(num), right)  => simplifyArithmeticWithConstants(op, left, right)
 
       // Short multiplication formulas
 
