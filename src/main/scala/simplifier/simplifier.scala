@@ -254,9 +254,14 @@ object Simplifier {
         }
         case _ => BinExpr(op, left, right)
       }
-
     }
+  }
 
+  def simplifyBinExpWildcard(op: String, left: Node, right: Node): Node = {
+    // Checking if simplification goes further
+    val sL = simplify(left)
+    val sR = simplify(right)
+    if (sL != left || sR != right) simplify(BinExpr(op, sL, sR)) else BinExpr(op, sL, sR)
   }
 
   def simplify(node: Node): Node = node match {
@@ -408,11 +413,7 @@ object Simplifier {
             simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
           case (BinExpr("/", numerator, denominator), expr) => // (y/z)*x = (x * y) /  z
             simplify(BinExpr("/", BinExpr("*", expr, numerator), denominator))
-          case (left, right) =>
-            // Checking if simplification goes further
-            val sL = simplify(left)
-            val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr(op, sL, sR)) else BinExpr(op, sL, sR)
+          case (left, right) => simplifyBinExpWildcard(op,left,right)
         }
 
         case "/" => simplifyDivision(extLeft,extRight)
@@ -462,11 +463,7 @@ object Simplifier {
           case (left, right@BinExpr("-", inLeft, inRight)) =>
             if (inRight == left) simplify(inLeft)   // (x-y)+y
             else BinExpr("+", simplify(left), simplify(right))
-          case (left, right) =>
-            // Checking if simplification goes further
-            val sL = simplify(left)
-            val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr(op, sL, sR)) else BinExpr(op, sL, sR)
+          case (left, right) => simplifyBinExpWildcard(op,left,right)
         }
         case "-" => (extLeft, extRight) match {
 
@@ -504,28 +501,17 @@ object Simplifier {
             if (inLeft == left) simplify(Unary("-", inRight)) // x-(x+y)
             else if (inRight == left) simplify(Unary("-", inLeft)) // y-(x+y)
             else BinExpr("-", simplify(left), simplify(right))
-          case (left, right) =>
-            // Checking if simplification goes further
-            val sL = simplify(left)
-            val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr(op, sL, sR)) else BinExpr(op, sL, sR)
+          case (left, right) => simplifyBinExpWildcard(op,left,right)
         }
 
         // Power laws
         case "**" => (extLeft, extRight) match {
           case (BinExpr("**", inLeft, inRight), right) =>
             simplify(BinExpr("**", inLeft, BinExpr("*", inRight, right))) // a**b**c = a**(b*c)
-          case (left, right) =>
-            // Checking if simplification goes further
-            val sL = simplify(left)
-            val sR = simplify(right)
-            if (sL != left || sR != right) simplify(BinExpr("**", sL, sR)) else BinExpr("**", sL, sR)
+          case (left, right) => simplifyBinExpWildcard(op,left,right)
         }
-        case _ =>
-          // Checking if simplification goes further
-          val sLeft = simplify(extLeft)
-          val sRight = simplify(extRight)
-          if (sLeft != extLeft || sRight != extRight) simplify(BinExpr(op, sLeft, sRight)) else BinExpr(op, sLeft, sRight)
+
+        case _ => simplifyBinExpWildcard(op,extLeft,extRight)
       }
     }
 

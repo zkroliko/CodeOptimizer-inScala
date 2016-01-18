@@ -1,4 +1,6 @@
-x*y+x*z+v*y+v*z
+(x+y)**2-y**2-2*x*y
+
+(x+y)**2-y**2-2*y*x
 
 def some(m, n):
 {
