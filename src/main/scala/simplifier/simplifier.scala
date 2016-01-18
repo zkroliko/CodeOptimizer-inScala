@@ -52,11 +52,100 @@ object Simplifier {
         case simple =>  // x/(y/z) = x*z/y
           simplify(BinExpr("/", BinExpr("*", simple, simY2), simX2))
       }
-    case (left, right) =>
+    case (inLeft, inRight) =>
       // Checking if simplification goes further
-      val sL = simplify(left)
-      val sR = simplify(right)
-      if (sL != left || sR != right) simplify(BinExpr("/", sL, sR)) else BinExpr("/", sL, sR)
+      val sL = simplify(inLeft)
+      val sR = simplify(inRight)
+      if (sL != inLeft || sR != inRight) simplify(BinExpr("/", sL, sR)) else BinExpr("/", sL, sR)
+  }
+
+  def simplifyElse(cond: Node, left: Node, right: Node): Node = {
+    val simplifiedCondition = simplify(cond)
+    simplifiedCondition match {
+      case TrueConst() => simplify(left)
+      case FalseConst() => simplify(right)
+      case _ => IfElseInstr(simplifiedCondition, simplify(left), simplify(right))
+    }
+  }
+
+  def simplifyIf(cond: Node, left: Node): Node = {
+    val simplifiedCondition = simplify(cond)
+    simplifiedCondition match {
+      case TrueConst() => simplify(left)
+      case FalseConst() => DeadInstr()
+      case _ => IfInstr(simplifiedCondition, simplify(left))
+    }
+  }
+
+  def simplifyWhile(cond: Node, body: Node): Node = {
+    val simplifiedCond = simplify(cond)
+    simplifiedCond match {
+      case FalseConst() => DeadInstr()
+      case _ => WhileInstr(simplifiedCond, simplify(body))
+    }
+  }
+
+  def simplifyAssignments(left: String, expr: Node): Node = {
+    expr match {
+      case Variable(y) if left == y => DeadInstr()
+      case _ => expr match {
+        // x = y if %s else z
+        case IfElseExpr(cond, iLeft, iRight) =>
+          Assignment(Variable(left), simplify(IfElseInstr(cond, iLeft, iRight)))
+        case Variable(right) => variableAssignments get Variable(right) match {
+          case Some(Variable(original)) =>
+            variableAssignments += (Variable(left) -> Variable(right))
+            //println(variableAssignments.keys)
+            Assignment(Variable(left), Variable(original))
+          case None => // Hasn't been assigned yet
+            variableAssignments += (Variable(left) -> Variable(right))
+            //println(variableAssignments.keys)
+            Assignment(Variable(left), simplify(expr))
+          case _ => Assignment(Variable(left), expr)
+        }
+        case _ => Assignment(Variable(left), simplify(expr))
+      }
+    }
+  }
+
+  def simplifyAnd(left: Node, right: Node): Node = {
+    (simplify(left), simplify(right)) match {
+      case (_, FalseConst()) => FalseConst()
+      case (FalseConst(), _) => FalseConst()
+      case (expr, TrueConst()) => expr
+      case (TrueConst(), expr) => expr
+      case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
+      // Commutative property of and
+      case (var1@Variable(name), var2@Variable(name2)) => // y+x = x+y
+        if (name.compareTo(name2) < 0)
+          BinExpr("and", Variable(name), Variable(name2))
+        else
+          BinExpr("and", Variable(name2), Variable(name))
+      case (exprLeft, exprRight) =>
+        if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
+          simplify(BinExpr("and", exprLeft, exprRight))
+        else BinExpr("and", exprLeft, exprRight)
+    }
+  }
+
+  def simplifyOr(left: Node, right: Node): Node = {
+    (simplify(left), simplify(right)) match {
+      case (_, TrueConst()) => TrueConst()
+      case (TrueConst(), _) => TrueConst()
+      case (expr, FalseConst()) => expr
+      case (FalseConst(), expr) => expr
+      case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
+      // Commutative property of or
+      case (var1@Variable(name), var2@Variable(name2)) => // y+x = x+y
+        if (name.compareTo(name2) < 0)
+          BinExpr("or", Variable(name), Variable(name2))
+        else
+          BinExpr("or", Variable(name2), Variable(name))
+      case (exprLeft, exprRight) =>
+        if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
+          simplify(BinExpr("or", exprLeft, exprRight))
+        else BinExpr("or", exprLeft, exprRight)
+    }
   }
 
   def simplify(node: Node): Node = node match {
@@ -73,52 +162,17 @@ object Simplifier {
     ).toList.map(x => x._2))
 
     // Removing if's with false condition
-    case IfElseInstr(cond, left, right) =>
-      val simplifiedCondition = simplify(cond)
-      simplifiedCondition match {
-        case TrueConst()  => simplify(left)
-        case FalseConst() => simplify(right)
-        case _            => IfElseInstr(simplifiedCondition, simplify(left), simplify(right))
-      }
+    case IfElseInstr(cond, left, right) => simplifyElse(cond,left,right)
 
-    case IfInstr(cond, left) =>
-      val simplifiedCondition = simplify(cond)
-      simplifiedCondition match {
-        case TrueConst()  => simplify(left)
-        case FalseConst() => DeadInstr()
-        case _            => IfInstr(simplifiedCondition, simplify(left))
-      }
+    case IfInstr(cond, left) => simplifyIf(cond,left)
 
     // Removing loops with false condition
-    case WhileInstr(cond, body) =>
-      val simplifiedCond = simplify(cond)
-      simplifiedCond match {
-        case FalseConst() => DeadInstr()
-        case _ => WhileInstr(simplifiedCond, simplify(body))
-      }
+    case WhileInstr(cond, body) => simplifyWhile(cond,body)
+
 
     // Removing assignments to itself and shortening x = y if %s else z
     // also checking for a=b; c=b using map - not in specification
-    case Assignment(Variable(left), expr) => expr match {
-      case Variable(y) if left == y => DeadInstr()
-      case _ => expr match {
-        // x = y if %s else z
-        case IfElseExpr(cond,iLeft,iRight) =>
-          Assignment(Variable(left),simplify(IfElseInstr(cond,iLeft,iRight)))
-        case Variable(right) => variableAssignments get Variable(right) match {
-          case Some(Variable(original)) =>
-            variableAssignments += (Variable(left) -> Variable(right) )
-            //println(variableAssignments.keys)
-            Assignment(Variable(left), Variable(original))
-          case None => // Hasn't been assigned yet
-            variableAssignments += (Variable(left) -> Variable(right) )
-            //println(variableAssignments.keys)
-            Assignment(Variable(left), simplify(expr))
-          case _ => Assignment(Variable(left), expr)
-        }
-        case _ => Assignment(Variable(left), simplify(expr))
-      }
-    }
+    case Assignment(Variable(left), expr) => simplifyAssignments(left,expr)
 
     // Logical simplifications
 
@@ -155,44 +209,9 @@ object Simplifier {
     case BinExpr("or", x ,y) if x == y => x
     case BinExpr("and", x,y) if x == y => x
 
-    case BinExpr("and", left, right) =>
-      (simplify(left), simplify(right)) match {
-        case (_ , FalseConst()) => FalseConst()
-        case (FalseConst(), _) => FalseConst()
-        case (expr, TrueConst()) => expr
-        case (TrueConst(), expr) => expr
-        case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
-        // Commutative property of and
-        case (var1@Variable(name), var2@Variable(name2)) => // y+x = x+y
-          if (name.compareTo(name2) < 0)
-            BinExpr("and",Variable(name),Variable(name2))
-          else
-            BinExpr("and",Variable(name2),Variable(name))
-        case (exprLeft, exprRight) =>
-          if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
-            simplify(BinExpr("and", exprLeft, exprRight))
-          else BinExpr("and", exprLeft, exprRight)
-      }
+    case BinExpr("and", left, right) => simplifyAnd(left,right)
 
-    case BinExpr("or", left, right) =>
-      (simplify(left), simplify(right)) match {
-        case (_ , TrueConst()) => TrueConst()
-        case (TrueConst(), _) => TrueConst()
-        case (expr, FalseConst()) => expr
-        case (FalseConst(), expr) => expr
-        case (exprLeft, exprRight) if exprLeft == exprRight => exprLeft
-        // Commutative property of or
-        case (var1@Variable(name), var2@Variable(name2)) => // y+x = x+y
-          if (name.compareTo(name2) < 0)
-            BinExpr("or",Variable(name),Variable(name2))
-          else
-            BinExpr("or",Variable(name2),Variable(name))
-        case (exprLeft, exprRight) =>
-          if (exprLeft != left || exprRight != right) // Checking if it's the end of simplification
-            simplify(BinExpr("or", exprLeft, exprRight))
-          else BinExpr("or", exprLeft, exprRight)
-      }
-
+    case BinExpr("or", left, right) => simplifyOr(left, right)
 
     //        --- Unary expressions ---
 
