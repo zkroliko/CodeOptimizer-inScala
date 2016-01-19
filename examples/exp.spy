@@ -1,4 +1,6 @@
--(2*y)*x
+a=b
+c=a
+
 
 def some(m, n):
 {

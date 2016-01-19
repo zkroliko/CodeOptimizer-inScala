@@ -275,8 +275,8 @@ object Simplifier {
     // It associates keys of keyDatums with the whole objects,
     // then maps the resulting list to objects, leaving out duplicates
     case KeyDatumList(list) => KeyDatumList(list.foldLeft(Map.empty[Node, KeyDatum])(
-      (map, keyDatum) => map + (keyDatum.key -> keyDatum)
-    ).toList.map(x => x._2))
+  (map, keyDatum) => map + (keyDatum.key -> keyDatum)
+  ).toList.map(x => x._2))
 
     // Removing if's with false condition
     case IfElseInstr(cond, left, right) => simplifyElse(cond,left,right)
@@ -567,23 +567,11 @@ object Simplifier {
       case (Assignment(fLeft, fRight):: Assignment(left, right) :: rest) => fLeft match {
         case `left` => NodeList((Assignment(fLeft, right) :: rest) map simplify)
       }
-      case (Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: Nil) => fLeft match {
-        case `left` => NodeList((middle :: Assignment(fLeft, right) :: Nil) map simplify)
-      }
-      case (Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: rest) => fLeft match {
-        case `left` => NodeList((middle :: Assignment(fLeft, right) :: rest) map simplify)
-      }
       case (head :: Assignment(fLeft, fRight) :: Assignment(left, right) :: Nil) => fLeft match {
         case `left` => NodeList((head :: Assignment(fLeft, right) :: Nil) map simplify)
       }
       case (head :: Assignment(fLeft, fRight):: Assignment(left, right) :: rest) => fLeft match {
         case `left` => NodeList((head :: Assignment(fLeft, right) :: rest) map simplify)
-      }
-      case (head :: Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: Nil) => fLeft match {
-        case `left` => NodeList((head :: middle :: Assignment(fLeft, right) :: Nil) map simplify)
-      }
-      case (head :: Assignment(fLeft, fRight):: middle :: Assignment(left, right) :: rest) => fLeft match {
-        case `left` => NodeList((head :: middle :: Assignment(fLeft, right) :: rest) map simplify)
       }
 
 
